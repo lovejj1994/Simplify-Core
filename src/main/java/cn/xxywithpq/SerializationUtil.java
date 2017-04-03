@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * Created by panqian on 2017/4/1.
  */
 public class SerializationUtil {
-    static Logger logger = Logger.getLogger(SerializationUtil.class.getName());
+    private static Logger logger = Logger.getLogger(SerializationUtil.class.getName());
 
     /**
      * 序列化对象 对象应实现Serializable接口

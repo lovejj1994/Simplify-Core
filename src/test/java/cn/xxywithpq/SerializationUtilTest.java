@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * Created by panqian on 2017/4/1.
  */
 public class SerializationUtilTest {
-    static Logger logger = Logger.getLogger(SerializationUtilTest.class.getName());
+    private static Logger logger = Logger.getLogger(SerializationUtilTest.class.getName());
 
     public static void main(String[] args) {
         String str = "i am here";
