@@ -2,11 +2,11 @@ package cn.xxywithpq.json;
 
 import cn.xxywithpq.Common.Const;
 import cn.xxywithpq.ReflectionUtils;
+import cn.xxywithpq.json.serializer.ISerializer;
+import cn.xxywithpq.json.serializer.JsonSerializer;
+import cn.xxywithpq.json.serializer.codec.*;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.logging.Logger;
@@ -17,35 +17,19 @@ import java.util.logging.Logger;
  */
 public class Json {
 
+    private Json() {
+    }
+
     private static Logger logger = Logger.getLogger(Json.class.getName());
 
-    public static <T> String toJsonString(T t) {
-        if (Objects.isNull(t)){
+    private static JsonSerializer jsonSerializer;
+
+    public static String toJsonString(Object t) {
+        if (Objects.isNull(t)) {
             return null;
         }
-        Class<?> c = t.getClass();
-        if (c.getTypeName().equals(Const.STRING_TYPE)) {
-            String string = (String) t;
-            StringBuffer sb = new StringBuffer(string.length() + 2);
+        jsonSerializer = new JsonSerializer();
 
-            sb.append("\"").append(string).append("\"");
-            return sb.toString();
-        } else if (c.getTypeName().equals(Const.LONG_TYPE)) {
-            Long l = (Long) t;
-            String string = String.valueOf(l);
-            StringBuffer sb = new StringBuffer(string.length());
-            sb.append(string);
-            return sb.toString();
-        } else {
-            StringJoiner stringJoiner = new StringJoiner(",", "{", "}");
-            Field[] declaredFields = c.getDeclaredFields();
-            if (null != declaredFields && declaredFields.length > 0) {
-                for (Field f : declaredFields) {
-                    Object fieldValue = ReflectionUtils.getFieldValue(f, t);
-                    stringJoiner.add("\"" + f.getName() + "\":\"" + fieldValue + "\"");
-                }
-            }
-            return stringJoiner.toString();
-        }
+        return jsonSerializer.convertToJsonString(t);
     }
 }
