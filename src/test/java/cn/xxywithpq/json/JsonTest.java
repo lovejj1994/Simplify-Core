@@ -1,11 +1,9 @@
 package cn.xxywithpq.json;
 
-import cn.xxywithpq.ReflectionUtils;
 import cn.xxywithpq.json.Bean.User;
 import com.alibaba.fastjson.JSON;
 
-import java.math.BigDecimal;
-import java.time.Instant;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -136,5 +134,81 @@ public class JsonTest {
         long l21 = System.currentTimeMillis();
         System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(user));
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l21));
+
+        System.out.println("============================分割线=================================");
+
+        //List
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("a");
+        strings.add("b");
+        strings.add("c");
+        long l22 = System.currentTimeMillis();
+        System.out.println("alibaba:" + JSON.toJSONString(strings));
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l22));
+        long l23 = System.currentTimeMillis();
+        System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(strings));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l23));
+
+        System.out.println("============================分割线=================================");
+
+        //空List
+        ArrayList<String> strings1 = new ArrayList<>();
+        long l24 = System.currentTimeMillis();
+        System.out.println("alibaba:" + JSON.toJSONString(strings1));
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l24));
+        long l25 = System.currentTimeMillis();
+        System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(strings1));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l25));
+
+        System.out.println("============================分割线=================================");
+
+        //Set
+        Set<String> strings2 = new HashSet<>();
+        strings2.add("a");
+        strings2.add("b");
+        strings2.add("c");
+        long l26 = System.currentTimeMillis();
+        System.out.println("alibaba:" + JSON.toJSONString(strings2));
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l26));
+        long l27 = System.currentTimeMillis();
+        System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(strings2));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l27));
+
+        System.out.println("============================分割线=================================");
+
+        //空Set
+        Set<String> strings3 = new HashSet<>();
+        long l28 = System.currentTimeMillis();
+        System.out.println("alibaba:" + JSON.toJSONString(strings3));
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l28));
+        long l29 = System.currentTimeMillis();
+        System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(strings3));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l29));
+
+
+        System.out.println("============================分割线=================================");
+
+        //Map
+        Map<String, Object> maps = new HashMap<>();
+        maps.put("name", "panqian");
+        maps.put("age", 23);
+        long l30 = System.currentTimeMillis();
+        System.out.println("alibaba:" + JSON.toJSONString(maps));
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l30));
+        long l31 = System.currentTimeMillis();
+        System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(maps));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l31));
+
+        System.out.println("============================分割线=================================");
+
+        //空Map
+        Map<String, Object> maps1 = new HashMap<>();
+        long l32 = System.currentTimeMillis();
+        System.out.println("alibaba:" + JSON.toJSONString(maps1));
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l32));
+        long l33 = System.currentTimeMillis();
+        System.out.println("Simplify:" + cn.xxywithpq.json.Json.toJsonString(maps1));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l33));
+
     }
 }
