@@ -1,24 +1,24 @@
-package cn.xxywithpq.json.serializer.codec;
+package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
-import java.util.Collection;
+import java.util.Map;
 import java.util.StringJoiner;
 
 /**
- * Collection 解析器
+ * Map 解析器
  * Created by panqian on 2017/6/6.
  */
-public class CollectionCodec extends AbstractSerializer implements ISerializer {
+public class MapCodec extends AbstractSerializer implements ISerializer {
 
     StringJoiner sj;
 
     @Override
     public Object writeJsonString(Object o) {
-        sj = new StringJoiner(",", "[", "]");
-        Collection c = (Collection) o;
-        collectionHandle(sj, c);
+        sj = new StringJoiner(",", "{", "}");
+        Map m = (Map) o;
+        mapHandle(sj, m);
         return sj.toString();
     }
 }

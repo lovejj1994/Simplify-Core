@@ -1,4 +1,4 @@
-package cn.xxywithpq.json;
+package cn.xxywithpq;
 
 import cn.xxywithpq.json.serializer.JsonSerializer;
 

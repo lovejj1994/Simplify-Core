@@ -1,21 +1,21 @@
-package cn.xxywithpq.json.serializer.codec;
+package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
 /**
- * Integer 解析器
+ * Double 解析器
  * Created by panqian on 2017/6/6.
  */
-public class IntegerCodec extends AbstractSerializer implements ISerializer {
+public class DoubleCodec extends AbstractSerializer implements ISerializer {
 
     StringBuffer sb;
 
     @Override
     public Object writeJsonString(Object o) {
-        Integer i = (Integer) o;
+        Double d = (Double) o;
         sb = new StringBuffer(1);
-        numberHandle(sb, i);
+        numberHandle(sb, d);
         return sb.toString();
     }
 }

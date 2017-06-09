@@ -1,4 +1,4 @@
-package cn.xxywithpq.Common;
+package cn.xxywithpq.common;
 
 /**
  * Created by panqian on 2017/6/5.

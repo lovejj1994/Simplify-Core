@@ -1,21 +1,21 @@
-package cn.xxywithpq.json.serializer.codec;
+package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
 /**
- * Number 解析器
+ * Byte 解析器
  * Created by panqian on 2017/6/6.
  */
-public class NumberCodec extends AbstractSerializer implements ISerializer {
+public class ByteCodec extends AbstractSerializer implements ISerializer {
 
     StringBuffer sb;
 
     @Override
     public Object writeJsonString(Object o) {
-        Number n = (Number) o;
-        sb = new StringBuffer(n.toString().length());
-        numberHandle(sb, n);
+        Byte b = (Byte) o;
+        sb = new StringBuffer(1);
+        numberHandle(sb, b);
         return sb.toString();
     }
 }

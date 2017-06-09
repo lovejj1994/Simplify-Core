@@ -1,6 +1,6 @@
-package cn.xxywithpq.json.serializer.codec;
+package cn.xxywithpq.json.codec;
 
-import cn.xxywithpq.Common.Const;
+import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 import cn.xxywithpq.utils.ReflectionUtils;

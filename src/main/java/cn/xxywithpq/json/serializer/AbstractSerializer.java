@@ -1,6 +1,6 @@
 package cn.xxywithpq.json.serializer;
 
-import cn.xxywithpq.Common.Const;
+import cn.xxywithpq.common.Const;
 
 import java.util.*;
 
