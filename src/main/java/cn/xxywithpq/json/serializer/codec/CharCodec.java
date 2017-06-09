@@ -15,7 +15,7 @@ public class CharCodec extends AbstractSerializer implements ISerializer {
     public Object writeJsonString(Object o) {
         Character c = (Character) o;
         sb = new StringBuffer(1);
-        characterHandle(sb,c);
+        characterHandle(sb, c);
         return sb.toString();
     }
 }

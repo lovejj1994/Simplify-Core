@@ -11,10 +11,9 @@ import java.util.logging.Logger;
  */
 public class JsonTest {
 
-    private static Logger logger = Logger.getLogger(Json.class.getName());
+    private static Logger logger = Logger.getLogger(JsonTest.class.getName());
 
     public static void main(String[] args) {
-
         //String型
         System.out.println("String型 test：");
         String test = "hello world";

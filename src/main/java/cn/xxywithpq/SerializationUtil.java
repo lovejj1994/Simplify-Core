@@ -14,6 +14,7 @@ public class SerializationUtil {
 
     /**
      * 序列化对象 对象应实现Serializable接口
+     *
      * @param obj 要序列化的对象
      * @param <T> 对象类型
      * @return byte数组
@@ -38,12 +39,13 @@ public class SerializationUtil {
 
     /**
      * 反序列化对象
+     *
      * @param bytes byte数组
-     * @param t 要反序列化的对象
-     * @param <T> 对象的类型
+     * @param t     要反序列化的对象
+     * @param <T>   对象的类型
      * @return 对象
      */
-    public static <T> T deserialize(byte[] bytes,Class<T> t) {
+    public static <T> T deserialize(byte[] bytes, Class<T> t) {
         if (Objects.isNull(bytes)) {
             throw new NullPointerException("传入数组不能为空");
         }

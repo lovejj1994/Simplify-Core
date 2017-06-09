@@ -15,7 +15,7 @@ public class StringCodec extends AbstractSerializer implements ISerializer {
     public Object writeJsonString(Object o) {
         String string = (String) o;
         sb = new StringBuffer(string.length() + 2);
-        characterHandle(sb,string);
+        characterHandle(sb, string);
         return sb.toString();
     }
 }

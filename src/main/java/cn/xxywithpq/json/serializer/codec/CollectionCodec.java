@@ -4,8 +4,6 @@ import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.StringJoiner;
 
 /**

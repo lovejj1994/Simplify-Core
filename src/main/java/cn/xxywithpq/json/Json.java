@@ -11,12 +11,11 @@ import java.util.logging.Logger;
  */
 public class Json {
 
+    private static Logger logger = Logger.getLogger(Json.class.getName());
+    private static JsonSerializer jsonSerializer;
+
     private Json() {
     }
-
-    private static Logger logger = Logger.getLogger(Json.class.getName());
-
-    private static JsonSerializer jsonSerializer;
 
     public static String toJsonString(Object t) {
         if (Objects.isNull(t)) {

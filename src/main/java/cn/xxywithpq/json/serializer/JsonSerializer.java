@@ -1,7 +1,6 @@
 package cn.xxywithpq.json.serializer;
 
 import cn.xxywithpq.Common.Const;
-import cn.xxywithpq.json.Json;
 import cn.xxywithpq.json.serializer.codec.*;
 
 import java.util.Collection;
@@ -29,8 +28,6 @@ public class JsonSerializer {
         if (Number.class.isAssignableFrom(c)) {
             c = Number.class;
         }
-
-        logger.info(c.getTypeName());
 
         switch (c.getTypeName()) {
             case Const.NUMBER_TYPE:

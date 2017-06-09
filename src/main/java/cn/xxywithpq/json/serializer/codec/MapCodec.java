@@ -3,7 +3,6 @@ package cn.xxywithpq.json.serializer.codec;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.StringJoiner;
 
