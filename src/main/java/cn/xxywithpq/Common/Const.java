@@ -11,7 +11,7 @@ public class Const {
     public static final String COLON = ":";
 
     public static final String STRING_TYPE = "java.lang.String";
-    public static final String CHAR_TYPE = "java.lang.Char";
+    public static final String CHAR_TYPE = "java.lang.Character";
     public static final String LONG_TYPE = "java.lang.Long";
     public static final String INTEGER_TYPE = "java.lang.Integer";
     public static final String SHORT_TYPE = "java.lang.Short";
@@ -23,4 +23,6 @@ public class Const {
     public static final String LIST_TYPE = "java.util.ArrayList";
     public static final String SET_TYPE = "java.util.Set";
     public static final String MAP_TYPE = "java.util.Map";
+    public static final String NUMBER_TYPE = "java.lang.Number";
+
 }

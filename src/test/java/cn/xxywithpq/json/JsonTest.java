@@ -125,6 +125,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //带基本类型的Bean
+        System.out.println("带基本类型的Bean test：");
         User user = new User();
         user.id = 2l;
         user.setName("panqian");
@@ -138,6 +139,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //List
+        System.out.println("List test：");
         ArrayList<String> strings = new ArrayList<>();
         strings.add("a");
         strings.add("b");
@@ -152,6 +154,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //空List
+        System.out.println("空List test：");
         ArrayList<String> strings1 = new ArrayList<>();
         long l24 = System.currentTimeMillis();
         System.out.println("alibaba:" + JSON.toJSONString(strings1));
@@ -163,6 +166,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //Set
+        System.out.println("Set test：");
         Set<String> strings2 = new HashSet<>();
         strings2.add("a");
         strings2.add("b");
@@ -177,6 +181,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //空Set
+        System.out.println("空Set test：");
         Set<String> strings3 = new HashSet<>();
         long l28 = System.currentTimeMillis();
         System.out.println("alibaba:" + JSON.toJSONString(strings3));
@@ -189,6 +194,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //Map
+        System.out.println("Map test：");
         Map<String, Object> maps = new HashMap<>();
         maps.put("name", "panqian");
         maps.put("age", 23);
@@ -202,6 +208,7 @@ public class JsonTest {
         System.out.println("============================分割线=================================");
 
         //空Map
+        System.out.println("空Map test：");
         Map<String, Object> maps1 = new HashMap<>();
         long l32 = System.currentTimeMillis();
         System.out.println("alibaba:" + JSON.toJSONString(maps1));
