@@ -1,7 +1,5 @@
 package cn.xxywithpq.json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import cn.xxywithpq.Json;
 import cn.xxywithpq.json.Bean.User;
 import com.alibaba.fastjson.JSON;
@@ -9,6 +7,8 @@ import org.junit.jupiter.api.*;
 
 import java.util.*;
 import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by panqian on 2017/4/8.
@@ -22,16 +22,16 @@ public class JsonTest {
     static void initAll() {
     }
 
+    @AfterAll
+    static void tearDownAll() {
+    }
+
     @BeforeEach
     void init() {
     }
 
     @AfterEach
     void tearDown() {
-    }
-
-    @AfterAll
-    static void tearDownAll() {
     }
 
     @Test
@@ -48,7 +48,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l3));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -64,7 +64,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l5));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -80,7 +80,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l7));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -96,7 +96,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l9));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -112,7 +112,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l11));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -128,7 +128,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l13));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -144,7 +144,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l15));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -160,7 +160,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l17));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -176,7 +176,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l19));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -194,7 +194,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l21));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -213,7 +213,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l23));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -229,7 +229,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l25));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -248,7 +248,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l27));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -264,7 +264,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l29));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -282,7 +282,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l31));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
         System.out.println("============================分割线=================================");
 
@@ -298,7 +298,7 @@ public class JsonTest {
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l33));
 
-        assertEquals(alibaba,simplify);
+        assertEquals(alibaba, simplify);
 
     }
 }

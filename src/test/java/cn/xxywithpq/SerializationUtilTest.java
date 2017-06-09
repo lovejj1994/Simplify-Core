@@ -1,8 +1,11 @@
 package cn.xxywithpq;
 
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * 序列化对象工具类
@@ -12,7 +15,8 @@ import java.util.logging.Logger;
 public class SerializationUtilTest {
     private static Logger logger = Logger.getLogger(SerializationUtilTest.class.getName());
 
-    public static void main(String[] args) {
+    @Test
+    public void SerializationTest() {
         String str = "i am here";
         //序列化对象，对象应实现了Serializable接口
         byte[] serialize = SerializationUtil.serialize(str);
@@ -22,5 +26,6 @@ public class SerializationUtilTest {
         String deserialize = SerializationUtil.deserialize(serialize, String.class);
         logger.info("反序列化：" + deserialize);
 
+        assertEquals(str, deserialize);
     }
 }
