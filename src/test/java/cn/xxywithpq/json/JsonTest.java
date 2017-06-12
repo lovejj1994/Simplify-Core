@@ -361,19 +361,4 @@ public class JsonTest {
         assertEquals(alibaba, simplify);
 
     }
-
-    public static void main(String[] args) {
-        //LocalTime
-        System.out.println("LocalTime test：");
-        LocalTime lt = LocalTime.now();
-        long l40 = System.currentTimeMillis();
-        String alibaba = JSON.toJSONString(lt);
-        System.out.println("alibaba:" + alibaba);
-        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l40));
-        long l41 = System.currentTimeMillis();
-        String simplify = Json.toJsonString(lt);
-        System.out.println("Simplify:" + simplify);
-        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l41));
-
-    }
 }

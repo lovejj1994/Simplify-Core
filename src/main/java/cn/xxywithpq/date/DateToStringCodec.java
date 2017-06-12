@@ -5,7 +5,6 @@ import cn.xxywithpq.common.Const;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -28,15 +27,5 @@ public class DateToStringCodec {
     public String convertLocalDateTimeToString(LocalDateTime ldt, String pattern) {
         formatter = DateTimeFormatter.ofPattern(pattern);
         return formatter.format(ldt);
-    }
-
-    public String convertLocalDateTimeToStringForJson(LocalDateTime ldt) {
-        formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        return formatter.format(ldt);
-    }
-
-    public String convertLocalTimeToStringForJson(LocalTime lt) {
-        formatter = DateTimeFormatter.ISO_TIME;
-        return formatter.format(lt);
     }
 }

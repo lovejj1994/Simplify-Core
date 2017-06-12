@@ -6,8 +6,8 @@ import cn.xxywithpq.common.Const;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by panqian on 2017/6/6.
@@ -57,12 +57,12 @@ public abstract class AbstractSerializer {
     }
 
     protected void localDateTimeHandle(StringBuffer sb, LocalDateTime ldt) {
-        sb.append(Const.SINGLE_QUOTES + SimpleDate.dateToStringForJson(ldt) + Const.SINGLE_QUOTES);
+        DateTimeFormatter isoLocalDateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        sb.append(Const.SINGLE_QUOTES + isoLocalDateTime.format(ldt) + Const.SINGLE_QUOTES);
     }
 
     protected void localTimeHandle(StringBuffer sb, LocalTime lt) {
-        sb.append(Const.SINGLE_QUOTES + SimpleDate.timeToStringForJson(lt) + Const.SINGLE_QUOTES);
+        DateTimeFormatter isoTime = DateTimeFormatter.ISO_TIME;
+        sb.append(Const.SINGLE_QUOTES + isoTime.format(lt) + Const.SINGLE_QUOTES);
     }
-
-
 }
