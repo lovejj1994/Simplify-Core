@@ -333,6 +333,11 @@ public class JsonTest {
         assertEquals(alibaba, simplify);
 
         //LocalDateTime
+        /**
+         * alibaba:"2017-06-12T15:09:40.870"
+         * Simplify:"2017-06-12T15:09:40.87"
+         * 如果碰到这个情况（alibaba毫秒会保留三位），不算bug
+         */
         System.out.println("LocalDateTime test：");
         LocalDateTime ldt = LocalDateTime.now();
         long l40 = System.currentTimeMillis();
@@ -357,6 +362,19 @@ public class JsonTest {
         simplify = Json.toJsonString(lt);
         System.out.println("Simplify:" + simplify);
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l43));
+
+        assertEquals(alibaba, simplify);
+
+        System.out.println("Array test：");
+        String[] arr = {"a", "b", "c"};
+        long l44 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(arr);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l44));
+        long l45 = System.currentTimeMillis();
+        simplify = Json.toJsonString(arr);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l45));
 
         assertEquals(alibaba, simplify);
 

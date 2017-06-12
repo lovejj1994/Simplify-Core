@@ -29,6 +29,10 @@ public class JsonSerializer {
             c = Number.class;
         }
 
+        if (c.isArray()) {
+            return new ArrayCodec();
+        }
+
         switch (c.getTypeName()) {
             case Const.NUMBER_TYPE:
                 return new NumberCodec();
