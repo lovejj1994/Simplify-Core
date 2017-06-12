@@ -42,6 +42,14 @@ public class JsonSerializer {
                 return new BooleanCodec();
             case Const.CHAR_TYPE:
                 return new CharCodec();
+            case Const.DATE_TYPE:
+                return new DateCodec();
+            case Const.LOCALDATE_TYPE:
+                return new LocalDateCodec();
+            case Const.LOCALDATETIME_TYPE:
+                return new LocalDateTimeCodec();
+            case Const.LOCALTIME_TYPE:
+                return new LocalTimeCodec();
             default:
                 return new ObjectCodec();
         }

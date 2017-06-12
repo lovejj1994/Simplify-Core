@@ -5,6 +5,9 @@ import cn.xxywithpq.json.Bean.User;
 import com.alibaba.fastjson.JSON;
 import org.junit.jupiter.api.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -299,6 +302,78 @@ public class JsonTest {
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l33));
 
         assertEquals(alibaba, simplify);
+
+        //Date
+        System.out.println("Date test：");
+        Date date = new Date();
+        LocalDate now = LocalDate.now();
+        long l34 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(date);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l34));
+        long l35 = System.currentTimeMillis();
+        simplify = Json.toJsonString(date);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l35));
+
+        assertEquals(alibaba, simplify);
+
+        //LocalDate
+        System.out.println("LocalDate test：");
+        LocalDate ld = LocalDate.now();
+        long l36 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(ld);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l36));
+        long l37 = System.currentTimeMillis();
+        simplify = Json.toJsonString(ld);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l37));
+
+        assertEquals(alibaba, simplify);
+
+        //LocalDateTime
+        System.out.println("LocalDateTime test：");
+        LocalDateTime ldt = LocalDateTime.now();
+        long l40 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(ldt);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l40));
+        long l41 = System.currentTimeMillis();
+        simplify = Json.toJsonString(ldt);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l41));
+
+        assertEquals(alibaba, simplify);
+
+        //LocalTime
+        System.out.println("LocalTime test：");
+        LocalTime lt = LocalTime.now();
+        long l42 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(lt);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l42));
+        long l43 = System.currentTimeMillis();
+        simplify = Json.toJsonString(lt);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l43));
+
+        assertEquals(alibaba, simplify);
+
+    }
+
+    public static void main(String[] args) {
+        //LocalTime
+        System.out.println("LocalTime test：");
+        LocalTime lt = LocalTime.now();
+        long l40 = System.currentTimeMillis();
+        String alibaba = JSON.toJSONString(lt);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l40));
+        long l41 = System.currentTimeMillis();
+        String simplify = Json.toJsonString(lt);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l41));
 
     }
 }
