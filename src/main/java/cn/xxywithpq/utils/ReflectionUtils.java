@@ -2,7 +2,10 @@ package cn.xxywithpq.utils;
 
 
 import java.lang.reflect.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 
@@ -13,6 +16,8 @@ import java.util.logging.Logger;
  */
 public class ReflectionUtils {
 
+    private static final int ACCESS_MODIFIERS =
+            Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
     private static Logger logger = Logger.getLogger(ReflectionUtils.class.getName());
 
     private ReflectionUtils() {
@@ -96,6 +101,54 @@ public class ReflectionUtils {
      * 循环向上转型,获取类的DeclaredField.
      */
     @SuppressWarnings("unchecked")
+    public static Field getValueFromDeclaredMethods(final Class clazz) {
+        if (Objects.isNull(clazz)) {
+            throw new IllegalArgumentException("The clazz cannot be empty");
+        }
+
+
+//        Method[] declaredMethods = clazz.getDeclaredMethods();
+        Method[] declaredMethods = clazz.getMethods();
+        if (null != declaredMethods && declaredMethods.length > 0) {
+            for (Method method : declaredMethods) {
+                System.out.println(method.getName() + "  :  " + getModifier(method));
+            }
+
+        }
+
+        return null;
+    }
+
+    public static String getModifier(Method m) {
+        return getModifier(Modifier.methodModifiers(), m.getModifiers(), m.isDefault());
+    }
+
+    /**
+     * 获得该方法是共有私有
+     */
+    @SuppressWarnings("unchecked")
+    static String getModifier(int mask, int modifiers, boolean isDefault) {
+        int mod = modifiers & mask;
+
+        if (mod != 0 && !isDefault) {
+            return Modifier.toString(mod);
+        } else {
+            int access_mod = mod & ACCESS_MODIFIERS;
+            if (access_mod != 0)
+                return Modifier.toString(access_mod);
+            if (isDefault)
+                return "default ";
+            mod = (mod & ~ACCESS_MODIFIERS);
+            if (mod != 0)
+                return Modifier.toString(mod);
+        }
+        return null;
+    }
+
+    /**
+     * 循环向上转型,获取类的DeclaredField.
+     */
+    @SuppressWarnings("unchecked")
     protected static Field getDeclaredField(final Class clazz, final String fieldName) {
         if (Objects.isNull(clazz)) {
             throw new IllegalArgumentException("The clazz cannot be empty");
@@ -114,12 +167,31 @@ public class ReflectionUtils {
     }
 
     /**
+     * 循环向上转型,获取类的所有DeclaredMethods.除了Object
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Method> getAllDeclaredMethods(final Class clazz) {
+        if (Objects.isNull(clazz)) {
+            throw new IllegalArgumentException("The clazz cannot be empty");
+        }
+        ArrayList<Method> methods = new ArrayList<>();
+        for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
+                Method[] declaredMethods = superClass.getDeclaredMethods();
+                if (null != declaredMethods && declaredMethods.length > 0) {
+                    for (Method m : declaredMethods)
+                        methods.add(m);
+                }
+        }
+        return methods;
+    }
+
+    /**
      * 强制转换fileld可访问.
      */
     protected static void makeAccessible(final Field field) {
-        if (!Modifier.isPublic(field.getModifiers()) || !Modifier.isPublic(field.getDeclaringClass().getModifiers())) {
-            field.setAccessible(true);
-        }
+//        if (!isPublic(field.getModifiers()) || !isPublic(field.getDeclaringClass().getModifiers())) {
+//            field.setAccessible(true);
+//        }
     }
 
     /**
@@ -192,13 +264,13 @@ public class ReflectionUtils {
      *
      * @param leafClass the class to introspect
      */
-    public static Method[] getAllDeclaredMethods(Class<?> leafClass) {
-        final List<Method> methods = new ArrayList<>(32);
-        doWithMethods(leafClass, (Method method) ->
-                methods.add(method)
-        );
-        return methods.toArray(new Method[methods.size()]);
-    }
+//    public static Method[] getAllDeclaredMethods(Class<?> leafClass) {
+//        final List<Method> methods = new ArrayList<>(32);
+//        doWithMethods(leafClass, (Method method) ->
+//                methods.add(method)
+//        );
+//        return methods.toArray(new Method[methods.size()]);
+//    }
 
 
     /**
@@ -210,24 +282,24 @@ public class ReflectionUtils {
      * @param clazz the class to introspect
      * @param mc    the callback to invoke for each method
      */
-    private static void doWithMethods(Class<?> clazz, MethodCallback mc) {
-        // Keep backing up the inheritance hierarchy.
-        Method[] methods = getDeclaredMethods(clazz);
-        for (Method method : methods) {
-            try {
-                mc.doWith(method);
-            } catch (IllegalAccessException ex) {
-                throw new IllegalStateException("Not allowed to access method '" + method.getName() + "': " + ex);
-            }
-        }
-        if (clazz.getSuperclass() != null) {
-            doWithMethods(clazz.getSuperclass(), mc);
-        } else if (clazz.isInterface()) {
-            for (Class<?> superIfc : clazz.getInterfaces()) {
-                doWithMethods(superIfc, mc);
-            }
-        }
-    }
+//    private static void doWithMethods(Class<?> clazz, MethodCallback mc) {
+//        // Keep backing up the inheritance hierarchy.
+//        Method[] methods = getDeclaredMethods(clazz);
+//        for (Method method : methods) {
+//            try {
+//                mc.doWith(method);
+//            } catch (IllegalAccessException ex) {
+//                throw new IllegalStateException("Not allowed to access method '" + method.getName() + "': " + ex);
+//            }
+//        }
+//        if (clazz.getSuperclass() != null) {
+//            doWithMethods(clazz.getSuperclass(), mc);
+//        } else if (clazz.isInterface()) {
+//            for (Class<?> superIfc : clazz.getInterfaces()) {
+//                doWithMethods(superIfc, mc);
+//            }
+//        }
+//    }
 
     /**
      * This variant retrieves {@link Class#getDeclaredMethods()} from a local cache
@@ -239,38 +311,23 @@ public class ReflectionUtils {
      * @return the cached array of methods
      * @see Class#getDeclaredMethods()
      */
-    private static Method[] getDeclaredMethods(Class<?> clazz) {
-        Method[] result;
-        Method[] declaredMethods = clazz.getDeclaredMethods();
-        List<Method> defaultMethods = findConcreteMethodsOnInterfaces(clazz);
-        if (defaultMethods != null) {
-            result = new Method[declaredMethods.length + defaultMethods.size()];
-            System.arraycopy(declaredMethods, 0, result, 0, declaredMethods.length);
-            int index = declaredMethods.length;
-            for (Method defaultMethod : defaultMethods) {
-                result[index] = defaultMethod;
-                index++;
-            }
-        } else {
-            result = declaredMethods;
-        }
-        return result;
-    }
-
-    private static List<Method> findConcreteMethodsOnInterfaces(Class<?> clazz) {
-        List<Method> result = null;
-        for (Class<?> ifc : clazz.getInterfaces()) {
-            for (Method ifcMethod : ifc.getMethods()) {
-                if (!Modifier.isAbstract(ifcMethod.getModifiers())) {
-                    if (result == null) {
-                        result = new LinkedList<>();
-                    }
-                    result.add(ifcMethod);
-                }
-            }
-        }
-        return result;
-    }
+//    private static Method[] getDeclaredMethods(Class<?> clazz) {
+//        Method[] result;
+//        Method[] declaredMethods = clazz.getDeclaredMethods();
+//        List<Method> defaultMethods = findConcreteMethodsOnInterfaces(clazz);
+//        if (defaultMethods != null) {
+//            result = new Method[declaredMethods.length + defaultMethods.size()];
+//            System.arraycopy(declaredMethods, 0, result, 0, declaredMethods.length);
+//            int index = declaredMethods.length;
+//            for (Method defaultMethod : defaultMethods) {
+//                result[index] = defaultMethod;
+//                index++;
+//            }
+//        } else {
+//            result = declaredMethods;
+//        }
+//        return result;
+//    }
 
     /**
      * Action to take on each method.

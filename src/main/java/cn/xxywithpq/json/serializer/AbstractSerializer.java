@@ -14,7 +14,7 @@ import java.util.*;
  */
 public abstract class AbstractSerializer {
 
-    JsonSerializer jsonSerializer;
+    private JsonSerializer jsonSerializer = JsonSerializer.getInstance();
 
     protected void characterHandle(StringBuffer sb, CharSequence cs) {
         sb.append(Const.SINGLE_QUOTES).append(cs).append(Const.SINGLE_QUOTES);
@@ -30,7 +30,6 @@ public abstract class AbstractSerializer {
 
     protected void collectionHandle(StringJoiner sj, Collection cs) {
         Iterator iterator = cs.iterator();
-        jsonSerializer = new JsonSerializer();
         while (iterator.hasNext()) {
             sj.add(jsonSerializer.convertToJsonString(iterator.next()));
         }
@@ -40,7 +39,6 @@ public abstract class AbstractSerializer {
     protected void mapHandle(StringJoiner sj, Map cs) {
         Set set = cs.keySet();
         Iterator iterator = set.iterator();
-        jsonSerializer = new JsonSerializer();
         while (iterator.hasNext()) {
             Object next = iterator.next();
             sj.add(Const.SINGLE_QUOTES + next + Const.SINGLE_QUOTES + Const.COLON +

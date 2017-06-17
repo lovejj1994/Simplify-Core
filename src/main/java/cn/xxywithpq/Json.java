@@ -21,7 +21,7 @@ public class Json {
         if (Objects.isNull(t)) {
             return null;
         }
-        jsonSerializer = new JsonSerializer();
+        jsonSerializer = JsonSerializer.getInstance();
 
         return jsonSerializer.convertToJsonString(t);
     }

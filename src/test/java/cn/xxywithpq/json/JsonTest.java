@@ -1,6 +1,8 @@
 package cn.xxywithpq.json;
 
 import cn.xxywithpq.Json;
+import cn.xxywithpq.json.Bean.BaseEntity;
+import cn.xxywithpq.json.Bean.Group;
 import cn.xxywithpq.json.Bean.User;
 import com.alibaba.fastjson.JSON;
 import org.junit.jupiter.api.*;
@@ -186,8 +188,9 @@ public class JsonTest {
         //带基本类型的Bean
         System.out.println("带基本类型的Bean test：");
         User user = new User();
-        user.id = 2l;
+        user.setId("1");
         user.setName("panqian");
+        user.setAge(23l);
         long l20 = System.currentTimeMillis();
         alibaba = JSON.toJSONString(user);
         System.out.println("alibaba:" + alibaba);
@@ -303,6 +306,8 @@ public class JsonTest {
 
         assertEquals(alibaba, simplify);
 
+        System.out.println("============================分割线=================================");
+
         //Date
         System.out.println("Date test：");
         Date date = new Date();
@@ -318,6 +323,8 @@ public class JsonTest {
 
         assertEquals(alibaba, simplify);
 
+        System.out.println("============================分割线=================================");
+
         //LocalDate
         System.out.println("LocalDate test：");
         LocalDate ld = LocalDate.now();
@@ -331,6 +338,8 @@ public class JsonTest {
         System.out.println("Simplify ==============" + (System.currentTimeMillis() - l37));
 
         assertEquals(alibaba, simplify);
+
+        System.out.println("============================分割线=================================");
 
         //LocalDateTime
         /**
@@ -351,6 +360,8 @@ public class JsonTest {
 
         assertEquals(alibaba, simplify);
 
+        System.out.println("============================分割线=================================");
+
         //LocalTime
         System.out.println("LocalTime test：");
         LocalTime lt = LocalTime.now();
@@ -365,6 +376,8 @@ public class JsonTest {
 
         assertEquals(alibaba, simplify);
 
+        System.out.println("============================分割线=================================");
+
         System.out.println("Array test：");
         String[] arr = {"a", "b", "c"};
         long l44 = System.currentTimeMillis();
@@ -378,5 +391,34 @@ public class JsonTest {
 
         assertEquals(alibaba, simplify);
 
+        System.out.println("============================分割线=================================");
+
+        System.out.println("一对多 test：");
+        User user1 = new User();
+        user1.setId("1");
+        user1.setName("panqian1");
+        User user2 = new User();
+        user2.setId("2");
+        user2.setAge(23l);
+        user2.setName("panqian2");
+        Group group = new Group();
+        group.setId(1l);
+        group.setName("group1");
+        group.addUser(user1);
+        group.addUser(user2);
+
+        long l46 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(group);
+        System.out.println("alibaba:" + alibaba);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l46));
+        long l47 = System.currentTimeMillis();
+        simplify = Json.toJsonString(group);
+        System.out.println("Simplify:" + simplify);
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l47));
+
+        assertEquals(alibaba, simplify);
+
+
+        System.out.println(Arrays.toString(BaseEntity.class.getDeclaredFields()));
     }
 }

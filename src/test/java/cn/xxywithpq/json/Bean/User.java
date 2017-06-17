@@ -1,26 +1,25 @@
 package cn.xxywithpq.json.Bean;
 
-public class User {
+public class User extends BaseEntity {
 
-    public Long id;
     private String name;
+
+    private Long age;
+
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 }

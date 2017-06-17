@@ -15,6 +15,11 @@ public class JsonSerializer {
 
     private static Logger logger = Logger.getLogger(JsonSerializer.class.getName());
 
+    private static JsonSerializer jsonSerializer = new JsonSerializer();
+
+    private JsonSerializer(){
+    }
+
     private ISerializer getSuitableHandler(Class c) {
 
         if (Collection.class.isAssignableFrom(c)) {
@@ -63,6 +68,10 @@ public class JsonSerializer {
         Class<?> c = o.getClass();
         ISerializer suitableHandler = getSuitableHandler(c);
         return (String) suitableHandler.writeJsonString(o);
+    }
+
+    public static JsonSerializer getInstance(){
+        return jsonSerializer;
     }
 
 }

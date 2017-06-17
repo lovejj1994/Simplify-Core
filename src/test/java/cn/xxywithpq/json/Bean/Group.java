@@ -9,13 +9,7 @@ public class Group {
     private String name;
     private List<User> users = new ArrayList<User>();
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -23,6 +17,14 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<User> getUsers() {
