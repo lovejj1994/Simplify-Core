@@ -1,5 +1,6 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
@@ -16,7 +17,7 @@ public class MapCodec extends AbstractSerializer implements ISerializer {
 
     @Override
     public Object writeJsonString(Object o) {
-        sj = new StringJoiner(",", "{", "}");
+        sj = new StringJoiner(Const.COMMA, Const.PRE_BRACE, Const.POST_BRACE);
         Map m = (Map) o;
         mapHandle(sj, m);
         return sj.toString();

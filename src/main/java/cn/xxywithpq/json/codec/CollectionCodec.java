@@ -1,5 +1,6 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
@@ -16,7 +17,7 @@ public class CollectionCodec extends AbstractSerializer implements ISerializer {
 
     @Override
     public Object writeJsonString(Object o) {
-        sj = new StringJoiner(",", "[", "]");
+        sj = new StringJoiner(Const.COMMA, Const.PRE_BRACKET, Const.POST_BRACKET);
         Collection c = (Collection) o;
         collectionHandle(sj, c);
         return sj.toString();

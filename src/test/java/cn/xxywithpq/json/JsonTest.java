@@ -397,10 +397,18 @@ public class JsonTest {
         User user1 = new User();
         user1.setId("1");
         user1.setName("panqian1");
+        HashMap<String, Integer> grades1 = new HashMap<>();
+        grades1.put("语文", 100);
+        grades1.put("数学", 70);
+        user1.setGrades(grades1);
         User user2 = new User();
         user2.setId("2");
         user2.setAge(23l);
         user2.setName("panqian2");
+        HashMap<String, Integer> grades2 = new HashMap<>();
+        grades2.put("语文", 99);
+        grades2.put("数学", 60);
+        user2.setGrades(grades2);
         Group group = new Group();
         group.setId(1l);
         group.setName("group1");
@@ -420,5 +428,17 @@ public class JsonTest {
 
 
         System.out.println(Arrays.toString(BaseEntity.class.getDeclaredFields()));
+    }
+
+    @Test
+    public void test2() {
+        Object parse = JSON.parse("123");
+        System.out.println(parse);
+//        Object parse1 = JSON.parse("123.fsdfsdfs");
+//        System.out.println(parse1);
+        Object parse2 = JSON.parse("123.231");
+        System.out.println(parse2);
+        Object parse3 = JSON.parse("dasfasdf");
+        System.out.println(parse3);
     }
 }

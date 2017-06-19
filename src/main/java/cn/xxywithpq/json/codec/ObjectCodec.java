@@ -23,7 +23,7 @@ public class ObjectCodec extends AbstractSerializer implements ISerializer {
     StringJoiner sj;
 
     private String serializerObject(Object o) {
-        sj = new StringJoiner(",", "{", "}");
+        sj = new StringJoiner(Const.COMMA, Const.PRE_BRACE, Const.POST_BRACE);
         Class<?> cClass = o.getClass();
 
         //查找该类所有声明的方法（除Object）
@@ -34,7 +34,7 @@ public class ObjectCodec extends AbstractSerializer implements ISerializer {
         if (null != allDeclaredMethods && allDeclaredMethods.size() > 0) {
             for (Method m : allDeclaredMethods) {
                 String modifier = ReflectionUtils.getModifier(m);
-                if (modifier.contains("public") && m.getName().contains("get")) {
+                if (modifier.contains(Const.PUBLIC) && m.getName().contains(Const.GET)) {
                     publicGetMethods.add(m);
                 }
             }
