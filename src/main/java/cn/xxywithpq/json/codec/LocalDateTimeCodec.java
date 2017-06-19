@@ -3,7 +3,6 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**

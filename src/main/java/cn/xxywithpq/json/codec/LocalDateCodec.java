@@ -4,7 +4,6 @@ import cn.xxywithpq.json.serializer.AbstractSerializer;
 import cn.xxywithpq.json.serializer.ISerializer;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * LocalDate 解析器

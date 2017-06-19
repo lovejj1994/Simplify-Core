@@ -10,7 +10,6 @@ public class Group {
     private List<User> users = new ArrayList<User>();
 
 
-
     public String getName() {
         return name;
     }

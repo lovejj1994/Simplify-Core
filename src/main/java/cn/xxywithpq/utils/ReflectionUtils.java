@@ -176,11 +176,11 @@ public class ReflectionUtils {
         }
         ArrayList<Method> methods = new ArrayList<>();
         for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
-                Method[] declaredMethods = superClass.getDeclaredMethods();
-                if (null != declaredMethods && declaredMethods.length > 0) {
-                    for (Method m : declaredMethods)
-                        methods.add(m);
-                }
+            Method[] declaredMethods = superClass.getDeclaredMethods();
+            if (null != declaredMethods && declaredMethods.length > 0) {
+                for (Method m : declaredMethods)
+                    methods.add(m);
+            }
         }
         return methods;
     }
@@ -258,12 +258,12 @@ public class ReflectionUtils {
     }
 
 
-    /**
-     * Get all declared methods on the leaf class and all superclasses.
-     * Leaf class methods are included first.
-     *
-     * @param leafClass the class to introspect
-     */
+//    /**
+//     * Get all declared methods on the leaf class and all superclasses.
+//     * Leaf class methods are included first.
+//     *
+//     * @param leafClass the class to introspect
+//     */
 //    public static Method[] getAllDeclaredMethods(Class<?> leafClass) {
 //        final List<Method> methods = new ArrayList<>(32);
 //        doWithMethods(leafClass, (Method method) ->
@@ -273,15 +273,15 @@ public class ReflectionUtils {
 //    }
 
 
-    /**
-     * Perform the given callback operation on all matching methods of the given
-     * class and superclasses (or given interface and super-interfaces).
-     * <p>The same named method occurring on subclass and superclass will appear
-     * twice, unless excluded by the specified.
-     *
-     * @param clazz the class to introspect
-     * @param mc    the callback to invoke for each method
-     */
+//    /**
+//     * Perform the given callback operation on all matching methods of the given
+//     * class and superclasses (or given interface and super-interfaces).
+//     * <p>The same named method occurring on subclass and superclass will appear
+//     * twice, unless excluded by the specified.
+//     *
+//     * @param clazz the class to introspect
+//     * @param mc    the callback to invoke for each method
+//     */
 //    private static void doWithMethods(Class<?> clazz, MethodCallback mc) {
 //        // Keep backing up the inheritance hierarchy.
 //        Method[] methods = getDeclaredMethods(clazz);
@@ -301,16 +301,16 @@ public class ReflectionUtils {
 //        }
 //    }
 
-    /**
-     * This variant retrieves {@link Class#getDeclaredMethods()} from a local cache
-     * in order to avoid the JVM's SecurityManager check and defensive array copying.
-     * In addition, it also includes Java 8 default methods from locally implemented
-     * interfaces, since those are effectively to be treated just like declared methods.
-     *
-     * @param clazz the class to introspect
-     * @return the cached array of methods
-     * @see Class#getDeclaredMethods()
-     */
+//    /**
+//     * This variant retrieves {@link Class#getDeclaredMethods()} from a local cache
+//     * in order to avoid the JVM's SecurityManager check and defensive array copying.
+//     * In addition, it also includes Java 8 default methods from locally implemented
+//     * interfaces, since those are effectively to be treated just like declared methods.
+//     *
+//     * @param clazz the class to introspect
+//     * @return the cached array of methods
+//     * @see Class#getDeclaredMethods()
+//     */
 //    private static Method[] getDeclaredMethods(Class<?> clazz) {
 //        Method[] result;
 //        Method[] declaredMethods = clazz.getDeclaredMethods();
@@ -329,16 +329,16 @@ public class ReflectionUtils {
 //        return result;
 //    }
 
-    /**
-     * Action to take on each method.
-     */
-    public interface MethodCallback {
-
-        /**
-         * Perform an operation using the given method.
-         *
-         * @param method the method to operate on
-         */
-        void doWith(Method method) throws IllegalArgumentException, IllegalAccessException;
-    }
+//    /**
+//     * Action to take on each method.
+//     */
+//    public interface MethodCallback {
+//
+//        /**
+//         * Perform an operation using the given method.
+//         *
+//         * @param method the method to operate on
+//         */
+//        void doWith(Method method) throws IllegalArgumentException, IllegalAccessException;
+//    }
 }

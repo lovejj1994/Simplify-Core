@@ -17,7 +17,11 @@ public class JsonSerializer {
 
     private static JsonSerializer jsonSerializer = new JsonSerializer();
 
-    private JsonSerializer(){
+    private JsonSerializer() {
+    }
+
+    public static JsonSerializer getInstance() {
+        return jsonSerializer;
     }
 
     private ISerializer getSuitableHandler(Class c) {
@@ -68,10 +72,6 @@ public class JsonSerializer {
         Class<?> c = o.getClass();
         ISerializer suitableHandler = getSuitableHandler(c);
         return (String) suitableHandler.writeJsonString(o);
-    }
-
-    public static JsonSerializer getInstance(){
-        return jsonSerializer;
     }
 
 }

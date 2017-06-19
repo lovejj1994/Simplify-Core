@@ -16,7 +16,7 @@ public class DateCodec extends AbstractSerializer implements ISerializer {
     @Override
     public Object writeJsonString(Object o) {
         Date d = (Date) o;
-        sb = new StringBuffer(((Long)d.getTime()).toString().length());
+        sb = new StringBuffer(((Long) d.getTime()).toString().length());
         dateHandle(sb, d);
         return sb.toString();
     }
