@@ -1,5 +1,8 @@
 package cn.xxywithpq.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by panqian on 2017/6/5.
  */
@@ -95,5 +98,30 @@ public class StringUtils {
      */
     public static boolean isNotBlank(String str) {
         return !StringUtils.isBlank(str);
+    }
+
+
+    /**
+     * 判断字符串是不是数字（包括小数）
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNumeric(String str) {
+        if (StringUtils.isBlank(str))
+            return false;
+        Pattern pattern = Pattern.compile("(\\d*)(\\.?)(\\d*)");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches()) {
+            return false;
+        } else {
+            //如果 是 "123." 这种会返回false
+            String group = isNum.group(2);
+            String group1 = isNum.group(3);
+            if (StringUtils.isNotBlank(group) && StringUtils.isBlank(group1)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

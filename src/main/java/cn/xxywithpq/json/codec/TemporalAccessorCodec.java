@@ -1,7 +1,7 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
-import cn.xxywithpq.json.serializer.ISerializer;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * TemporalAccessor 解析器
  * Created by panqian on 2017/6/6.
  */
-public class TemporalAccessorCodec extends AbstractSerializer implements ISerializer {
+public class TemporalAccessorCodec extends AbstractSerializer implements IJson {
 
     StringBuffer sb;
 
@@ -19,5 +19,10 @@ public class TemporalAccessorCodec extends AbstractSerializer implements ISerial
         sb = new StringBuffer(23);
         localDateHandle(sb, ld);
         return sb.toString();
+    }
+
+    @Override
+    public Object parse(Object o) {
+        return null;
     }
 }

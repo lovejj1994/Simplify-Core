@@ -1,6 +1,7 @@
 package cn.xxywithpq.json.serializer;
 
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.codec.*;
 
 import java.util.Collection;
@@ -24,7 +25,7 @@ public class JsonSerializer {
         return jsonSerializer;
     }
 
-    private ISerializer getSuitableHandler(Class c) {
+    private IJson getSuitableHandler(Class c) {
 
         if (Collection.class.isAssignableFrom(c)) {
             c = Collection.class;
@@ -70,7 +71,7 @@ public class JsonSerializer {
 
     public String convertToJsonString(Object o) {
         Class<?> c = o.getClass();
-        ISerializer suitableHandler = getSuitableHandler(c);
+        IJson suitableHandler = getSuitableHandler(c);
         return (String) suitableHandler.writeJsonString(o);
     }
 

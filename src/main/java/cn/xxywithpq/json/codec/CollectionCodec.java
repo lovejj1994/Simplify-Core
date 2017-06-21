@@ -1,8 +1,8 @@
 package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
-import cn.xxywithpq.json.serializer.ISerializer;
 
 import java.util.Collection;
 import java.util.StringJoiner;
@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * Collection 解析器
  * Created by panqian on 2017/6/6.
  */
-public class CollectionCodec extends AbstractSerializer implements ISerializer {
+public class CollectionCodec extends AbstractSerializer implements IJson {
 
     StringJoiner sj;
 
@@ -21,5 +21,10 @@ public class CollectionCodec extends AbstractSerializer implements ISerializer {
         Collection c = (Collection) o;
         collectionHandle(sj, c);
         return sj.toString();
+    }
+
+    @Override
+    public Object parse(Object o) {
+        return null;
     }
 }

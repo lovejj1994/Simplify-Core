@@ -1,8 +1,8 @@
 package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
-import cn.xxywithpq.json.serializer.ISerializer;
 
 import java.util.Map;
 import java.util.StringJoiner;
@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * Map 解析器
  * Created by panqian on 2017/6/6.
  */
-public class MapCodec extends AbstractSerializer implements ISerializer {
+public class MapCodec extends AbstractSerializer implements IJson {
 
     StringJoiner sj;
 
@@ -21,5 +21,10 @@ public class MapCodec extends AbstractSerializer implements ISerializer {
         Map m = (Map) o;
         mapHandle(sj, m);
         return sj.toString();
+    }
+
+    @Override
+    public Object parse(Object o) {
+        return null;
     }
 }

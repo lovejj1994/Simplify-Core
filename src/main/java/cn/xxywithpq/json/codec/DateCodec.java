@@ -1,7 +1,7 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
-import cn.xxywithpq.json.serializer.ISerializer;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import java.util.Date;
  * Date 解析器
  * Created by panqian on 2017/6/6.
  */
-public class DateCodec extends AbstractSerializer implements ISerializer {
+public class DateCodec extends AbstractSerializer implements IJson {
 
     StringBuffer sb;
 
@@ -19,5 +19,10 @@ public class DateCodec extends AbstractSerializer implements ISerializer {
         sb = new StringBuffer(((Long) d.getTime()).toString().length());
         dateHandle(sb, d);
         return sb.toString();
+    }
+
+    @Override
+    public Object parse(Object o) {
+        return null;
     }
 }

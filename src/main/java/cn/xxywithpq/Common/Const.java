@@ -12,7 +12,19 @@ public class Const {
 
     //符号
     public static final String SINGLE_QUOTES = "\"";
+    public static final char SINGLE_QUOTES_CHAR = '\"';
     public static final String COLON = ":";
+    public static final char COLON_CHAR = ':';
+    public static final String COMMA = ",";
+    public static final char COMMA_CHAR = ',';
+    public static final String PRE_BRACE = "{";
+    public static final char PRE_BRACE_CHAR = '{';
+    public static final String POST_BRACE = "}";
+    public static final char POST_BRACE_CHAR = '}';
+    public static final String PRE_BRACKET = "[";
+    public static final char PRE_BRACKET_CHAR = '[';
+    public static final String POST_BRACKET = "]";
+    public static final char POST_BRACKET_CHAR = ']';
 
     //java类型
     public static final String STRING_TYPE = "java.lang.String";
@@ -33,4 +45,14 @@ public class Const {
     public static final String LOCALDATE_TYPE = "java.time.LocalDate";
     public static final String LOCALDATETIME_TYPE = "java.time.LocalDateTime";
     public static final String LOCALTIME_TYPE = "java.time.LocalTime";
+
+    public static final String SET = "set";
+    public static final String GET = "get";
+    public static final String PUBLIC = "public";
+
+    //JsonParser状态
+    public static final String BEGIN = "BEGIN";
+    public static final String KEY = "KEY";
+    public static final String VALUE = "VALUE";
+    public static final String READING = "READING";
 }

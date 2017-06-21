@@ -1,8 +1,8 @@
 package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
-import cn.xxywithpq.json.serializer.ISerializer;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 import cn.xxywithpq.utils.ReflectionUtils;
 
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * Object 解析器
  * Created by panqian on 2017/6/8.
  */
-public class ObjectCodec extends AbstractSerializer implements ISerializer {
+public class ObjectCodec extends AbstractSerializer implements IJson {
 
     private static Logger logger = Logger.getLogger(JsonSerializer.class.getName());
 
@@ -72,5 +72,10 @@ public class ObjectCodec extends AbstractSerializer implements ISerializer {
     public Object writeJsonString(Object o) {
         String result = serializerObject(o);
         return result;
+    }
+
+    @Override
+    public Object parse(Object o) {
+        return null;
     }
 }

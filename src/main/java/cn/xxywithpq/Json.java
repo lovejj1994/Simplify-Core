@@ -1,7 +1,10 @@
 package cn.xxywithpq;
 
+import cn.xxywithpq.json.parse.JsonObject;
+import cn.xxywithpq.json.parse.JsonParser;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -13,6 +16,7 @@ public class Json {
 
     private static Logger logger = Logger.getLogger(Json.class.getName());
     private static JsonSerializer jsonSerializer;
+    private static JsonParser jsonParser;
 
     private Json() {
     }
@@ -24,5 +28,23 @@ public class Json {
         jsonSerializer = JsonSerializer.getInstance();
 
         return jsonSerializer.convertToJsonString(t);
+    }
+
+    public static JsonObject parseObject(String text) {
+        if (Objects.isNull(text)) {
+            return null;
+        }
+        jsonParser = JsonParser.getInstance();
+
+        return jsonParser.parseObject(text);
+    }
+
+    public static <T> T parseObject(String text, Class<T> clazz) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        if (Objects.isNull(text)) {
+            return null;
+        }
+        jsonParser = JsonParser.getInstance();
+
+        return jsonParser.parseObject(text, clazz);
     }
 }
