@@ -565,7 +565,8 @@ public class JsonTest {
         String s2 = Json.toJsonString(group);
         assertEquals(s1, s2);
         try {
-            Group group1 = Json.parseObject(s1, Group.class);
+            JsonObject jsonObject1 = Json.parseObject(s1);
+//            Group group1 = Json.parseObject(s1, Group.class);
             JSONObject jsonObject = JSON.parseObject(s1);
 //            Object parse = JSON.parse(s1);
 //

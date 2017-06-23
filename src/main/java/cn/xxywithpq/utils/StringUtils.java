@@ -1,5 +1,6 @@
 package cn.xxywithpq.utils;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -123,5 +124,29 @@ public class StringUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 判断字符串是不是Integer, 先经过isNumeric(String str)判断是不是数字  再使用此方法
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isIntegerNumeric(String str) {
+        if (StringUtils.isBlank(str))
+            return false;
+        Pattern pattern = Pattern.compile("(\\d+)(\\.+)(\\d*)");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches()) {
+            BigDecimal bigDecimal = new BigDecimal(str);
+            if (Integer.MIN_VALUE <= bigDecimal.longValue() && bigDecimal.longValue() <= Integer.MAX_VALUE) {
+                return true;
+            }else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
     }
 }

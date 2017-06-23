@@ -81,7 +81,7 @@ public class JsonParser extends AbstractJson {
 //                            System.out.println(parameterType.getSuperclass().getName());
 //                            System.out.print("getGenericSuperclass:");
 
-                            IJson suitableHandler = getSuitableParseHandler(parameterType,genericParameterTypes);
+                            IJson suitableHandler = getSuitableParseHandler(parameterType, genericParameterTypes);
                             Object parse = suitableHandler.parse(o, genericParameterTypes);
                             m.invoke(t, parse);
                         }
@@ -208,7 +208,11 @@ public class JsonParser extends AbstractJson {
                     JsonObject jsonObject = (JsonObject) stacks.pop();
                     String s = value.toString();
                     if (StringUtils.isNumeric(s)) {
-                        jsonObject.put(key.toString(), new BigDecimal(s));
+                        if (StringUtils.isIntegerNumeric(s)) {
+                            jsonObject.put(key.toString(), new Integer(s));
+                        } else {
+                            jsonObject.put(key.toString(), new BigDecimal(s));
+                        }
                     } else {
                         jsonObject.put(key.toString(), s);
                     }
