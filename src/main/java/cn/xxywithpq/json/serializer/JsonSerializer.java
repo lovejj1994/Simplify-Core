@@ -1,19 +1,15 @@
 package cn.xxywithpq.json.serializer;
 
-import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
-import cn.xxywithpq.json.codec.*;
 
-import java.util.Collection;
-import java.util.Map;
 import java.util.logging.Logger;
 
 /**
  * Created by panqian on 2017/6/8.
  */
 
-public class JsonSerializer extends AbstractJson{
+public class JsonSerializer extends AbstractJson {
 
     private static Logger logger = Logger.getLogger(JsonSerializer.class.getName());
 

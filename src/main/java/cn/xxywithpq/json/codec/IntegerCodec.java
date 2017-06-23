@@ -1,13 +1,17 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
-import cn.xxywithpq.json.serializer.AbstractSerializer;
+
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * Integer 解析器
  * Created by panqian on 2017/6/6.
  */
-public class IntegerCodec extends AbstractSerializer implements IJson {
+public class IntegerCodec extends AbstractJson implements IJson {
 
     StringBuffer sb;
 
@@ -20,7 +24,11 @@ public class IntegerCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o) {
-        return null;
+    public Object parse(Object o,Type[] trueType) {
+        if (Objects.isNull(o)) {
+            return null;
+        }
+        BigDecimal bd = (BigDecimal) o;
+        return bd.intValue();
     }
 }

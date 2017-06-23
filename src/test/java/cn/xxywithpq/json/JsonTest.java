@@ -9,7 +9,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -551,25 +550,38 @@ public class JsonTest {
         HashMap<String, Integer> grades2 = new HashMap<>();
         grades2.put("语文", 99);
         grades2.put("数学", 60);
+        ArrayList types = new ArrayList();
+//        types.add(123l);
+//        types.add(12231213);
         user2.setGrades(grades2);
         Group group = new Group();
         group.setId(1l);
         group.setName("group1");
         group.addUser(user1);
         group.addUser(user2);
+//        group.setType(types);
 
-        String s1 = Json.toJsonString(group);
-
+        String s1 = JSON.toJSONString(group);
+        String s2 = Json.toJsonString(group);
+        assertEquals(s1, s2);
         try {
             Group group1 = Json.parseObject(s1, Group.class);
-            System.out.println(group1);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+            JSONObject jsonObject = JSON.parseObject(s1);
+//            Object parse = JSON.parse(s1);
+//
+//            Group group1 = JSON.parseObject(s1, Group.class);
+
+            System.out.println();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    @DisplayName("测试JsonParser")
+    public void test7() {
+        ArrayList<Float> floats = new ArrayList<>();
+
     }
 
 }

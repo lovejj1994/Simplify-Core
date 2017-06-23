@@ -3,6 +3,9 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+
 /**
  * Number 解析器
  * Created by panqian on 2017/6/6.
@@ -20,7 +23,8 @@ public class NumberCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o) {
-        return null;
+    public Object parse(Object o, Type[] trueType) {
+        BigDecimal bd = (BigDecimal) o;
+        return bd.doubleValue();
     }
 }

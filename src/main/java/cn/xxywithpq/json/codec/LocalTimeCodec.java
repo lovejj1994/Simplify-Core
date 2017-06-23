@@ -3,6 +3,7 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 
+import java.lang.reflect.Type;
 import java.time.LocalTime;
 
 /**
@@ -22,7 +23,7 @@ public class LocalTimeCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o) {
+    public Object parse(Object o, Type[] trueType) {
         return null;
     }
 }

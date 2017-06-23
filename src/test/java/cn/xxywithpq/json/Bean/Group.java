@@ -1,14 +1,34 @@
 package cn.xxywithpq.json.Bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Group {
 
     private Long id;
     private String name;
+    private List type;
     private List<User> users = new ArrayList<User>();
 
+    private Map<String,Integer> abcs = new HashMap<>();
+
+    public Map<String, Integer> getAbcs() {
+        return abcs;
+    }
+
+    public void setAbcs(Map<String, Integer> abcs) {
+        this.abcs = abcs;
+    }
+
+    public List getType() {
+        return type;
+    }
+
+    public void setType(List type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;

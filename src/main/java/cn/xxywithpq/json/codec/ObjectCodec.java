@@ -8,6 +8,7 @@ import cn.xxywithpq.utils.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.text.Collator;
 import java.util.*;
 import java.util.logging.Logger;
@@ -75,7 +76,7 @@ public class ObjectCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o) {
+    public Object parse(Object o, Type[] trueType) {
         return null;
     }
 }

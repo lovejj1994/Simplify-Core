@@ -1,5 +1,7 @@
 package cn.xxywithpq.common;
 
+import java.util.ArrayList;
+
 /**
  * Created by panqian on 2017/6/5.
  */
@@ -37,6 +39,7 @@ public class Const {
     public static final String FLOAT_TYPE = "java.lang.Float";
     public static final String BOOLEAN_TYPE = "java.lang.Boolean";
     public static final String COLLECTION_TYPE = "java.util.Collection";
+    public static final String ARRAYLIST_TYPE = "java.util.ArrayList";
     public static final String LIST_TYPE = "java.util.ArrayList";
     public static final String SET_TYPE = "java.util.Set";
     public static final String MAP_TYPE = "java.util.Map";
@@ -45,6 +48,7 @@ public class Const {
     public static final String LOCALDATE_TYPE = "java.time.LocalDate";
     public static final String LOCALDATETIME_TYPE = "java.time.LocalDateTime";
     public static final String LOCALTIME_TYPE = "java.time.LocalTime";
+    public static final String BIGDECIMAL_TYPE = "java.math.BigDecimal";
 
     public static final String SET = "set";
     public static final String GET = "get";

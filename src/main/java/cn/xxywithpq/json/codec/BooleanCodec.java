@@ -3,6 +3,8 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.serializer.AbstractSerializer;
 
+import java.lang.reflect.Type;
+
 /**
  * Boolean 解析器
  * Created by panqian on 2017/6/6.
@@ -16,7 +18,7 @@ public class BooleanCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o) {
+    public Object parse(Object o,Type[] trueType) {
         return null;
     }
 }

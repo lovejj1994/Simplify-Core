@@ -1,11 +1,15 @@
 package cn.xxywithpq.json.parse;
 
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.json.AbstractJson;
+import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.utils.ReflectionUtils;
 import cn.xxywithpq.utils.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -15,7 +19,7 @@ import java.util.regex.Pattern;
  * JsonParser
  * Created by panqian on 2017/6/20.
  */
-public class JsonParser {
+public class JsonParser extends AbstractJson {
 
     private static JsonParser jsonParser = new JsonParser();
 
@@ -31,7 +35,7 @@ public class JsonParser {
         return parseObject(jsonObject, clazz);
     }
 
-    public <T> T parseObject(JsonObject jsonObject, Class<T> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    private <T> T parseObject(JsonObject jsonObject, Class<T> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         if (Objects.isNull(jsonObject)) {
             return null;
         }
@@ -63,10 +67,23 @@ public class JsonParser {
                     if (jsonObject.containsKey(variable)) {
                         Object o = jsonObject.get(variable);
                         Class<?>[] parameterTypes = m.getParameterTypes();
+                        Type[] genericParameterTypes = m.getGenericParameterTypes();
+                        for (Type type : genericParameterTypes) {
+                            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
+                                for (Type t1 : ((ParameterizedType) type).getActualTypeArguments()) {
+                                    System.out.print(t1.getTypeName() + ",");
+                                }
+                            }
+                        }
                         if (null != parameterTypes && parameterTypes.length == 1) {
                             Class parameterType = parameterTypes[0];
-                            m.invoke(t, o);
+//                            System.out.print("getSuperclass:");
+//                            System.out.println(parameterType.getSuperclass().getName());
+//                            System.out.print("getGenericSuperclass:");
 
+                            IJson suitableHandler = getSuitableParseHandler(parameterType,genericParameterTypes);
+                            Object parse = suitableHandler.parse(o, genericParameterTypes);
+                            m.invoke(t, parse);
                         }
                     }
                 }
@@ -208,7 +225,9 @@ public class JsonParser {
 
             JsonObject value = (JsonObject) stacks.pop();
 
-            if (StringBuffer.class == stacks.peek().getClass()) {
+            if (stacks.isEmpty()) {
+                stacks.push(value);
+            } else if (StringBuffer.class == stacks.peek().getClass()) {
                 StringBuffer key = (StringBuffer) stacks.pop();
 
                 groupJsonObject(stacks, key, value);
