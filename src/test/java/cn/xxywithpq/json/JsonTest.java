@@ -5,6 +5,7 @@ import cn.xxywithpq.json.Bean.BaseEntity;
 import cn.xxywithpq.json.Bean.Group;
 import cn.xxywithpq.json.Bean.User;
 import cn.xxywithpq.json.parse.JsonObject;
+import cn.xxywithpq.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.*;
@@ -566,13 +567,17 @@ public class JsonTest {
         assertEquals(s1, s2);
         try {
             JsonObject jsonObject1 = Json.parseObject(s1);
-//            Group group1 = Json.parseObject(s1, Group.class);
             JSONObject jsonObject = JSON.parseObject(s1);
-//            Object parse = JSON.parse(s1);
 //
-//            Group group1 = JSON.parseObject(s1, Group.class);
+            Group group1 = Json.parseObject(s1, Group.class);
+            Group group2 = JSON.parseObject(s1, Group.class);
+            String s;
+            String s3;
+            System.out.println("测试JsonParser");
+            System.out.println(s = Json.toJsonString(group1));
+            System.out.println(s3 = JSON.toJSONString(group2));
+            assertEquals(s, s3);
 
-            System.out.println();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -581,8 +586,9 @@ public class JsonTest {
     @Test
     @DisplayName("测试JsonParser")
     public void test7() {
-        ArrayList<Float> floats = new ArrayList<>();
-
+        boolean integerNumeric = StringUtils.isIntegerNumeric("123.12");
+        boolean integerNumeric1 = StringUtils.isIntegerNumeric("123");
+//        boolean integerNumeric2 = StringUtils.isIntegerNumeric("123..23");
     }
 
 }

@@ -5,7 +5,6 @@ import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.codec.*;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -111,15 +110,7 @@ public abstract class AbstractJson {
         }
     }
 
-    protected IJson getSuitableParseHandler(Class c,Type[] trueType) {
-
-//        if (Collection.class.isAssignableFrom(c)) {
-//            c = Collection.class;
-//        }
-
-        if (Map.class.isAssignableFrom(c)) {
-            c = Map.class;
-        }
+    protected IJson getSuitableParseHandler(Class c) {
 
         if (c.isArray()) {
             return new ArrayCodec();
@@ -130,10 +121,14 @@ public abstract class AbstractJson {
                 return new LongCodec();
             case Const.INTEGER_TYPE:
                 return new IntegerCodec();
+            case Const.LIST_TYPE:
+                return new CollectionCodec();
             case Const.COLLECTION_TYPE:
                 return new CollectionCodec();
             case Const.ARRAYLIST_TYPE:
                 return new ArrayListCodec();
+            case Const.HASHMAP_TYPE:
+                return new HashMapCodec();
             case Const.MAP_TYPE:
                 return new MapCodec();
             case Const.STRING_TYPE:

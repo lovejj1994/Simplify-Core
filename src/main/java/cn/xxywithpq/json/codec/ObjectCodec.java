@@ -1,13 +1,15 @@
 package cn.xxywithpq.json.codec;
 
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
-import cn.xxywithpq.json.serializer.AbstractSerializer;
+import cn.xxywithpq.json.parse.JsonObject;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 import cn.xxywithpq.utils.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.text.Collator;
 import java.util.*;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  * Object 解析器
  * Created by panqian on 2017/6/8.
  */
-public class ObjectCodec extends AbstractSerializer implements IJson {
+public class ObjectCodec extends AbstractJson implements IJson {
 
     private static Logger logger = Logger.getLogger(JsonSerializer.class.getName());
 
@@ -76,7 +78,67 @@ public class ObjectCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o, Type[] trueType) {
+    public Object parse(Object o, Method m) {
+        JsonObject jo = (JsonObject) o;
+        Type[] genericParameterTypes = m.getGenericParameterTypes();
+        Type t = null;
+        for (Type type : genericParameterTypes) {
+            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
+                for (Type t1 : ((ParameterizedType) type).getActualTypeArguments()) {
+                    t = t1;
+                }
+            }
+        }
+
+        try {
+            Class<?> aClass = Class.forName(t.getTypeName());
+            Object o1 = aClass.newInstance();
+            //查找该类所有声明的方法（除Object）
+            List<Method> allDeclaredMethods = ReflectionUtils.getAllDeclaredMethods(aClass);
+
+            //筛选public set方法
+            ArrayList<Method> publicSetMethods = new ArrayList<>();
+            if (null != allDeclaredMethods && allDeclaredMethods.size() > 0) {
+                for (Method md : allDeclaredMethods) {
+                    String modifier = ReflectionUtils.getModifier(md);
+                    if (modifier.contains(Const.PUBLIC) && md.getName().startsWith(Const.SET)) {
+                        publicSetMethods.add(md);
+                    }
+                }
+            }
+
+            if (null != publicSetMethods && publicSetMethods.size() > 0) {
+                for (Method md : publicSetMethods) {
+                    String methodName = md.getName();
+                    String variable = methodName.substring(3, methodName.length());
+                    Class<?>[] parameterTypes = md.getParameterTypes();
+                    Class parameterType = null;
+                    if (null != parameterTypes && parameterTypes.length == 1) {
+                        parameterType = parameterTypes[0];
+                    }
+                    variable = variable.substring(0, 1).toLowerCase() + variable.substring(1, variable.length());
+                    if (jo.containsKey(variable)) {
+                        Object oo = jo.get(variable);
+                        IJson suitableHandler = getSuitableParseHandler(parameterType);
+                        Object parse = suitableHandler.parse(oo, md);
+                        try {
+                            md.invoke(o1, parse);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            return o1;
+        } catch (ClassNotFoundException e) {
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

@@ -4,11 +4,10 @@ import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.ListIterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 /**
  * Collection 解析器
@@ -27,8 +26,26 @@ public class ArrayListCodec extends AbstractJson implements IJson {
     }
 
     @Override
-    public Object parse(Object o,Type[] trueType) {
-        ArrayList<Object> al = (ArrayList) o;
+    public Object parse(Object o, Method m) {
+        ArrayList al = (ArrayList) o;
+        Type[] genericParameterTypes = m.getGenericParameterTypes();
+        Type t = null;
+        for (Type type : genericParameterTypes) {
+            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
+                for (Type t1 : ((ParameterizedType) type).getActualTypeArguments()) {
+                    t = t1;
+                }
+            }
+        }
+        if (Objects.nonNull(t)) {
+            ListIterator listIterator = al.listIterator();
+            IJson suitableParseHandler = getSuitableParseHandler(t.getClass());
+            while (listIterator.hasNext()) {
+                Object next = listIterator.next();
+                Object parse = suitableParseHandler.parse(next, m);
+                listIterator.set(parse);
+            }
+        }
         return al;
     }
 }

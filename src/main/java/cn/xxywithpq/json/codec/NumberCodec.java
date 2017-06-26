@@ -1,16 +1,16 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
-import cn.xxywithpq.json.serializer.AbstractSerializer;
 
-import java.lang.reflect.Type;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 
 /**
  * Number 解析器
  * Created by panqian on 2017/6/6.
  */
-public class NumberCodec extends AbstractSerializer implements IJson {
+public class NumberCodec extends AbstractJson implements IJson {
 
     StringBuffer sb;
 
@@ -23,7 +23,7 @@ public class NumberCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o, Type[] trueType) {
+    public Object parse(Object o, Method m) {
         BigDecimal bd = (BigDecimal) o;
         return bd.doubleValue();
     }

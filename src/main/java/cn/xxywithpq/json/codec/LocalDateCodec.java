@@ -1,16 +1,16 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
-import cn.xxywithpq.json.serializer.AbstractSerializer;
 
-import java.lang.reflect.Type;
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 
 /**
  * LocalDate 解析器
  * Created by panqian on 2017/6/6.
  */
-public class LocalDateCodec extends AbstractSerializer implements IJson {
+public class LocalDateCodec extends AbstractJson implements IJson {
 
     StringBuffer sb;
 
@@ -23,7 +23,7 @@ public class LocalDateCodec extends AbstractSerializer implements IJson {
     }
 
     @Override
-    public Object parse(Object o, Type[] trueType) {
+    public Object parse(Object o, Method m) {
         return null;
     }
 }

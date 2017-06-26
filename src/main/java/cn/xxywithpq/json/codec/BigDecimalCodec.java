@@ -4,9 +4,8 @@ import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.ListIterator;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.StringJoiner;
 
 /**
@@ -26,17 +25,8 @@ public class BigDecimalCodec extends AbstractJson implements IJson {
     }
 
     @Override
-    public Object parse(Object o,Type[] trueType) {
-        ArrayList<Object> al = (ArrayList) o;
-        if (null != al && al.size() > 0) {
-            ListIterator<Object> iterator = al.listIterator();
-            while (iterator.hasNext()) {
-                Object next = iterator.next();
-                IJson suitableHandler = getSuitableParseHandler(next.getClass(), trueType);
-                Object parse = suitableHandler.parse(next, trueType);
-                iterator.set(parse);
-            }
-        }
-        return al;
+    public Object parse(Object o, Method m) {
+        BigDecimal bd = (BigDecimal) o;
+        return bd;
     }
 }

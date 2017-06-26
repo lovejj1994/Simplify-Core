@@ -8,8 +8,6 @@ import cn.xxywithpq.utils.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -58,40 +56,26 @@ public class JsonParser extends AbstractJson {
                 }
             }
             if (null != publicSetMethods && publicSetMethods.size() > 0) {
-
                 for (Method m : publicSetMethods) {
                     String methodName = m.getName();
                     String variable = methodName.substring(3, methodName.length());
+                    Class<?>[] parameterTypes = m.getParameterTypes();
+                    Class parameterType = null;
+                    if (null != parameterTypes && parameterTypes.length == 1) {
+                        parameterType = parameterTypes[0];
+                    }
                     variable = variable.substring(0, 1).toLowerCase() + variable.substring(1, variable.length());
-
                     if (jsonObject.containsKey(variable)) {
-                        Object o = jsonObject.get(variable);
-                        Class<?>[] parameterTypes = m.getParameterTypes();
-                        Type[] genericParameterTypes = m.getGenericParameterTypes();
-                        for (Type type : genericParameterTypes) {
-                            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
-                                for (Type t1 : ((ParameterizedType) type).getActualTypeArguments()) {
-                                    System.out.print(t1.getTypeName() + ",");
-                                }
-                            }
-                        }
-                        if (null != parameterTypes && parameterTypes.length == 1) {
-                            Class parameterType = parameterTypes[0];
-//                            System.out.print("getSuperclass:");
-//                            System.out.println(parameterType.getSuperclass().getName());
-//                            System.out.print("getGenericSuperclass:");
-
-                            IJson suitableHandler = getSuitableParseHandler(parameterType, genericParameterTypes);
-                            Object parse = suitableHandler.parse(o, genericParameterTypes);
-                            m.invoke(t, parse);
-                        }
+                        Object oo = jsonObject.get(variable);
+                        IJson suitableHandler = getSuitableParseHandler(parameterType);
+                        Object parse = suitableHandler.parse(oo, m);
+                        m.invoke(t, parse);
                     }
                 }
             }
         }
         return t;
     }
-
 
     public JsonObject parseObject(String text) {
         Stack<Object> stacks = new Stack();

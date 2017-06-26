@@ -3,8 +3,7 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 
-import java.lang.reflect.Type;
-import java.math.BigDecimal;
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
@@ -24,11 +23,11 @@ public class IntegerCodec extends AbstractJson implements IJson {
     }
 
     @Override
-    public Object parse(Object o,Type[] trueType) {
+    public Object parse(Object o, Method m) {
         if (Objects.isNull(o)) {
             return null;
         }
-        BigDecimal bd = (BigDecimal) o;
-        return bd.intValue();
+        Integer i = (Integer) o;
+        return i.intValue();
     }
 }

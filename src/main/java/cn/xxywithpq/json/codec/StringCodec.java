@@ -3,7 +3,7 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 
-import java.lang.reflect.Type;
+import java.lang.reflect.Method;
 
 /**
  * String 解析器
@@ -22,7 +22,7 @@ public class StringCodec extends AbstractJson implements IJson {
     }
 
     @Override
-    public Object parse(Object o, Type[] trueType) {
+    public Object parse(Object o, Method m) {
         return o;
     }
 }

@@ -12,7 +12,7 @@ public class Group {
     private List type;
     private List<User> users = new ArrayList<User>();
 
-    private Map<String,Integer> abcs = new HashMap<>();
+    private Map<String, Integer> abcs = new HashMap<>();
 
     public Map<String, Integer> getAbcs() {
         return abcs;
@@ -56,5 +56,16 @@ public class Group {
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", users=" + users +
+                ", abcs=" + abcs +
+                '}';
     }
 }

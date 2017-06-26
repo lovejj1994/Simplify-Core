@@ -13,10 +13,10 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 /**
- * Map 解析器
+ * HashMapCodec 解析器
  * Created by panqian on 2017/6/6.
  */
-public class MapCodec extends AbstractJson implements IJson {
+public class HashMapCodec extends AbstractJson implements IJson {
 
     StringJoiner sj;
 
@@ -51,13 +51,9 @@ public class MapCodec extends AbstractJson implements IJson {
         if (null != keys && keys.size() > 0) {
             for (String key : keys) {
                 Object oo = p.get(key);
-                try {
-                    Class<?> aClass = Class.forName(t.getTypeName());
-                    IJson suitableHandler = getSuitableParseHandler(aClass);
-                    Object parse = suitableHandler.parse(oo, m);
-                    p.replace(key, parse);
-                } catch (ClassNotFoundException e) {
-                }
+                IJson suitableHandler = getSuitableParseHandler(t.getClass());
+                Object parse = suitableHandler.parse(oo, m);
+                p.replace(key, parse);
             }
         }
         return p;

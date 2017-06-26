@@ -1,7 +1,5 @@
 package cn.xxywithpq.common;
 
-import java.util.ArrayList;
-
 /**
  * Created by panqian on 2017/6/5.
  */
@@ -40,9 +38,10 @@ public class Const {
     public static final String BOOLEAN_TYPE = "java.lang.Boolean";
     public static final String COLLECTION_TYPE = "java.util.Collection";
     public static final String ARRAYLIST_TYPE = "java.util.ArrayList";
-    public static final String LIST_TYPE = "java.util.ArrayList";
+    public static final String LIST_TYPE = "java.util.List";
     public static final String SET_TYPE = "java.util.Set";
     public static final String MAP_TYPE = "java.util.Map";
+    public static final String HASHMAP_TYPE = "java.util.HashMap";
     public static final String NUMBER_TYPE = "java.lang.Number";
     public static final String DATE_TYPE = "java.util.Date";
     public static final String LOCALDATE_TYPE = "java.time.LocalDate";
