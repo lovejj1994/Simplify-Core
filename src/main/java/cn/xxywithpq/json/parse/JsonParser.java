@@ -124,7 +124,20 @@ public class JsonParser extends AbstractJson {
                     //碰到 ,
                     case Const.COMMA_CHAR: {
                         groupJsonObject(stacks);
-                        status = Const.KEY;
+                        if (JsonArray.class == stacks.peek().getClass()) {
+                            if (i + 1 < chars.length) {
+                                char c = chars[i + 1];
+                                if (c != Const.SINGLE_QUOTES_CHAR) {
+                                    status = Const.VALUE;
+                                } else {
+                                    status = Const.KEY;
+                                }
+                            } else {
+                                throw new RuntimeException("The structure of jsonString is wrong ");
+                            }
+                        } else {
+                            status = Const.KEY;
+                        }
                         break;
                     }
                     //碰到 [
@@ -140,6 +153,22 @@ public class JsonParser extends AbstractJson {
                             if (JsonArray.class == stacks.peek().getClass()) {
                                 JsonArray jsonArray = (JsonArray) stacks.pop();
                                 jsonArray.add(jsonObject);
+                                stacks.push(jsonArray);
+                            }
+                        } else if (StringBuffer.class == stacks.peek().getClass()) {
+                            StringBuffer value = (StringBuffer) stacks.pop();
+                            String s = value.toString();
+                            if (JsonArray.class == stacks.peek().getClass()) {
+                                JsonArray jsonArray = (JsonArray) stacks.pop();
+                                if (StringUtils.isNumeric(s)) {
+                                    if (StringUtils.isIntegerNumeric(s)) {
+                                        jsonArray.add(new Integer(s));
+                                    } else {
+                                        jsonArray.add(new BigDecimal(s));
+                                    }
+                                } else {
+                                    jsonArray.add(s);
+                                }
                                 stacks.push(jsonArray);
                             }
                         }
@@ -205,19 +234,29 @@ public class JsonParser extends AbstractJson {
                     throw new RuntimeException("The structure of jsonString is wrong ");
                 }
 
+            } else if (JsonArray.class == stacks.peek().getClass()) {
+                JsonArray array = (JsonArray) stacks.pop();
+                String s = value.toString();
+                if (StringUtils.isNumeric(s)) {
+                    if (StringUtils.isIntegerNumeric(s)) {
+                        array.add(new Integer(s));
+                    } else {
+                        array.add(new BigDecimal(s));
+                    }
+                } else {
+                    array.add(s);
+                }
+                stacks.push(array);
             } else {
                 throw new RuntimeException("The structure of jsonString is wrong ");
             }
             //整合StringBuffer&jsonObject 到jsonObject
         } else if (JsonObject.class == stacks.peek().getClass()) {
-
             JsonObject value = (JsonObject) stacks.pop();
-
             if (stacks.isEmpty()) {
                 stacks.push(value);
             } else if (StringBuffer.class == stacks.peek().getClass()) {
                 StringBuffer key = (StringBuffer) stacks.pop();
-
                 groupJsonObject(stacks, key, value);
             } else if (JsonArray.class == stacks.peek().getClass()) {
                 JsonArray array = (JsonArray) stacks.pop();
@@ -232,7 +271,6 @@ public class JsonParser extends AbstractJson {
 
             if (StringBuffer.class == stacks.peek().getClass()) {
                 StringBuffer key = (StringBuffer) stacks.pop();
-
                 groupJsonObject(stacks, key, value);
             }
         }

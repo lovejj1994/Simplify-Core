@@ -479,15 +479,15 @@ public class JsonTest {
         grades2.put("语文", 99);
         grades2.put("数学", 60);
         ArrayList types = new ArrayList();
-//        types.add(123l);
-//        types.add(12231213);
+        types.add(123l);
+        types.add(12231213);
         user2.setGrades(grades2);
         Group group = new Group();
         group.setId(1l);
         group.setName("group1");
         group.addUser(user1);
         group.addUser(user2);
-//        group.setType(types);
+        group.setType(types);
 
         String s1 = JSON.toJSONString(group);
         String s2 = Json.toJsonString(group);
