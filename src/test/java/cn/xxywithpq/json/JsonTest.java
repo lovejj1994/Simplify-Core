@@ -1,7 +1,6 @@
 package cn.xxywithpq.json;
 
 import cn.xxywithpq.Json;
-import cn.xxywithpq.json.Bean.BaseEntity;
 import cn.xxywithpq.json.Bean.Group;
 import cn.xxywithpq.json.Bean.User;
 import cn.xxywithpq.json.parse.JsonObject;
@@ -16,8 +15,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -433,31 +430,21 @@ public class JsonTest {
 
         assertEquals(alibaba, simplify);
 
+        System.out.println("============================分割线=================================");
 
-        System.out.println(Arrays.toString(BaseEntity.class.getDeclaredFields()));
-    }
+        System.out.println("BigDecimal test：");
 
-    @Test
-    public void test2() {
-        Object parse = JSON.parse("123");
-        System.out.println(parse);
-
-        BigDecimal bigDecimal = new BigDecimal("123");
-        long l46 = System.currentTimeMillis();
-        String alibaba = JSON.toJSONString(bigDecimal);
+        BigDecimal bigDecimal = new BigDecimal("123.454");
+        long l48 = System.currentTimeMillis();
+        alibaba = JSON.toJSONString(bigDecimal);
         System.out.println("alibaba:" + alibaba);
-        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l46));
-        long l47 = System.currentTimeMillis();
-        String simplify = Json.toJsonString(bigDecimal);
+        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l48));
+        long l49 = System.currentTimeMillis();
+        simplify = Json.toJsonString(bigDecimal);
         System.out.println("Simplify:" + simplify);
-        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l47));
+        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l49));
 
-//        Object parse1 = JSON.parse("123.fsdfsdfs");
-//        System.out.println(parse1);
-//        Object parse2 = JSON.parse("123.231");
-//        System.out.println(parse2);
-//        Object parse3 = JSON.parse("dasfasdf");
-//        System.out.println(parse3);
+        assertEquals(alibaba, simplify);
     }
 
     @Test
@@ -472,66 +459,6 @@ public class JsonTest {
         System.out.println(stack.pop());
 
         System.out.println(stack.peek());
-    }
-
-    @Test
-    @DisplayName("测试正则表达式")
-    public void test4() {
-//        System.out.println(StringUtils.isNumeric("123"));
-//        System.out.println(StringUtils.isNumeric("123.123"));
-//        System.out.println(StringUtils.isNumeric("123."));
-//        System.out.println(StringUtils.isNumeric("123ds"));
-
-        Pattern pattern = Pattern.compile("(.*)[.|,|\"|:*].*");
-        Matcher isNum = pattern.matcher("123456:sd");
-        System.out.println(isNum.matches());
-        System.out.println(isNum.group(1));
-        System.out.println(isNum.end(1));
-    }
-
-    @Test
-    @DisplayName("测试JsonParser")
-    public void test5() {
-
-        User user1 = new User();
-        user1.setId("1");
-        user1.setName("panqian1");
-        HashMap<String, Integer> grades1 = new HashMap<>();
-        grades1.put("语文", 100);
-        grades1.put("数学", 70);
-        user1.setGrades(grades1);
-        User user2 = new User();
-        user2.setId("2");
-        user2.setAge(23l);
-        user2.setName("panqian2");
-        HashMap<String, Integer> grades2 = new HashMap<>();
-        grades2.put("语文", 99);
-        grades2.put("数学", 60);
-        user2.setGrades(grades2);
-        Group group = new Group();
-        group.setId(1l);
-        group.setName("group1");
-        group.addUser(user1);
-        group.addUser(user2);
-
-        String s1 = Json.toJsonString(group);
-
-        System.out.println(s1);
-
-        long l46 = System.currentTimeMillis();
-        JSONObject alibaba = JSON.parseObject(s1);
-        System.out.println("alibaba:" + alibaba);
-        System.out.println("alibaba ==============" + (System.currentTimeMillis() - l46));
-        long l47 = System.currentTimeMillis();
-        JsonObject simplify = Json.parseObject(s1);
-        System.out.println("Simplify:" + simplify);
-        System.out.println("Simplify ==============" + (System.currentTimeMillis() - l47));
-
-        assertEquals(alibaba.toString(), simplify.toString());
-        System.out.println("===============================================================================");
-//        assertEquals();
-
-
     }
 
     @Test
@@ -569,14 +496,21 @@ public class JsonTest {
             JsonObject jsonObject1 = Json.parseObject(s1);
             JSONObject jsonObject = JSON.parseObject(s1);
 //
-            Group group1 = Json.parseObject(s1, Group.class);
-            Group group2 = JSON.parseObject(s1, Group.class);
-            String s;
-            String s3;
             System.out.println("测试JsonParser");
-            System.out.println(s = Json.toJsonString(group1));
-            System.out.println(s3 = JSON.toJSONString(group2));
-            assertEquals(s, s3);
+
+            String i;
+            String i1;
+            long l1 = System.currentTimeMillis();
+            Group group1 = JSON.parseObject(s1, Group.class);
+            System.out.println("alibaba ==============" + (System.currentTimeMillis() - l1));
+            System.out.println("alibaba:" + (i = JSON.toJSONString(group1)));
+
+            long l2 = System.currentTimeMillis();
+            Group group2 = Json.parseObject(s1, Group.class);
+            System.out.println("Simplify ==============" + (System.currentTimeMillis() - l2));
+            System.out.println("Simplify:" + (i1 = Json.toJsonString(group2)));
+
+            assertEquals(i, i1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -584,7 +518,7 @@ public class JsonTest {
     }
 
     @Test
-    @DisplayName("测试JsonParser")
+    @DisplayName("测试isIntegerNumeric")
     public void test7() {
         boolean integerNumeric = StringUtils.isIntegerNumeric("123.12");
         boolean integerNumeric1 = StringUtils.isIntegerNumeric("123");

@@ -2,6 +2,7 @@ package cn.xxywithpq.json;
 
 import cn.xxywithpq.SimpleDate;
 import cn.xxywithpq.common.Const;
+import cn.xxywithpq.date.ext.DateTimeFormatterExt;
 import cn.xxywithpq.json.codec.*;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 
@@ -57,7 +58,7 @@ public abstract class AbstractJson {
     }
 
     protected void localDateTimeHandle(StringBuffer sb, LocalDateTime ldt) {
-        DateTimeFormatter isoLocalDateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        DateTimeFormatter isoLocalDateTime = DateTimeFormatterExt.ISO_LOCAL_DATE_TIME;
         sb.append(Const.SINGLE_QUOTES + isoLocalDateTime.format(ldt) + Const.SINGLE_QUOTES);
     }
 
