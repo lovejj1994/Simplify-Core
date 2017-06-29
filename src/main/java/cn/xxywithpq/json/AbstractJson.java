@@ -6,6 +6,8 @@ import cn.xxywithpq.date.ext.DateTimeFormatterExt;
 import cn.xxywithpq.json.codec.*;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -153,5 +155,15 @@ public abstract class AbstractJson {
         }
     }
 
-
+    protected Type getActualTypeArgumentsFromMap(Type[] genericParameterTypes) {
+        for (Type type : genericParameterTypes) {
+            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
+                Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
+                for (int i = 1; i < actualTypeArguments.length; i++) {
+                    return actualTypeArguments[i];
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -448,20 +448,6 @@ public class JsonTest {
     }
 
     @Test
-    @DisplayName("测试Stack用法")
-    public void test3() {
-        Stack stack = new Stack();
-
-        stack.push("1");
-        stack.push("2");
-
-        System.out.println(stack.peek());
-        System.out.println(stack.pop());
-
-        System.out.println(stack.peek());
-    }
-
-    @Test
     @DisplayName("测试JsonParser")
     public void test6() {
         User user1 = new User();

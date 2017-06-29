@@ -5,7 +5,6 @@ import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,18 +34,7 @@ public class MapCodec extends AbstractJson implements IJson {
         Set<String> keys = p.keySet();
 
         Type[] genericParameterTypes = m.getGenericParameterTypes();
-        Type t = null;
-        for (Type type : genericParameterTypes) {
-            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
-                for (Type t1 : ((ParameterizedType) type).getActualTypeArguments()) {
-                    // TODO: 2017/6/26 map 有两个泛型变量，这里先粗暴处理
-                    if (!"String".contains(t1.getTypeName())) {
-                        t = t1;
-                    }
-                }
-            }
-        }
-
+        Type t = getActualTypeArgumentsFromMap(genericParameterTypes);
 
         if (null != keys && keys.size() > 0) {
             for (String key : keys) {
