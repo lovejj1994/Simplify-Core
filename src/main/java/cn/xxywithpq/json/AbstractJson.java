@@ -155,15 +155,20 @@ public abstract class AbstractJson {
         }
     }
 
-    protected Type getActualTypeArgumentsFromMap(Type[] genericParameterTypes) {
+    protected Type getActualTypeArguments(Type[] genericParameterTypes) {
         for (Type type : genericParameterTypes) {
             if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
                 Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
-                for (int i = 1; i < actualTypeArguments.length; i++) {
-                    return actualTypeArguments[i];
+                if (actualTypeArguments.length > 1) {
+                    for (int i = 1; i < actualTypeArguments.length; i++) {
+                        return actualTypeArguments[i];
+                    }
+                } else {
+                    return actualTypeArguments[0];
                 }
             }
         }
         return null;
     }
+
 }

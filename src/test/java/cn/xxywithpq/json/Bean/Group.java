@@ -1,16 +1,28 @@
 package cn.xxywithpq.json.Bean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Group {
 
     private Long id;
+
     private String name;
+    //基础类型
     private List type;
+    //基础类型和类混搭
+    private List type1;
+
     private List<User> users = new ArrayList<User>();
+
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     private Map<String, Integer> abcs = new HashMap<>();
 
@@ -58,14 +70,11 @@ public class Group {
         users.add(user);
     }
 
-    @Override
-    public String toString() {
-        return "Group{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type=" + type +
-                ", users=" + users +
-                ", abcs=" + abcs +
-                '}';
+    public List getType1() {
+        return type1;
+    }
+
+    public void setType1(List type1) {
+        this.type1 = type1;
     }
 }

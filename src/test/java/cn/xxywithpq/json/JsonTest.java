@@ -7,6 +7,7 @@ import cn.xxywithpq.json.parse.JsonObject;
 import cn.xxywithpq.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
@@ -464,18 +465,23 @@ public class JsonTest {
         HashMap<String, Integer> grades2 = new HashMap<>();
         grades2.put("语文", 99);
         grades2.put("数学", 60);
-        ArrayList types = new ArrayList();
-        types.add(123l);
-        types.add(12231213);
         user2.setGrades(grades2);
         Group group = new Group();
         group.setId(1l);
         group.setName("group1");
         group.addUser(user1);
         group.addUser(user2);
-        group.setType(types);
-
-        String s1 = JSON.toJSONString(group);
+        ArrayList types1 = new ArrayList();
+        types1.add(123l);
+        types1.add(12231213);
+        group.setType(types1);
+        ArrayList types2 = new ArrayList();
+        types2.add(123l);
+        types2.add(new Date());
+        types2.add(user1);
+        group.setType1(types2);
+        group.setDate(new Date());
+        String s1 = JSON.toJSONString(group, SerializerFeature.DisableCircularReferenceDetect);
         String s2 = Json.toJsonString(group);
         assertEquals(s1, s2);
         try {

@@ -34,8 +34,7 @@ public class HashMapCodec extends AbstractJson implements IJson {
         Set<String> keys = p.keySet();
 
         Type[] genericParameterTypes = m.getGenericParameterTypes();
-        Type t = getActualTypeArgumentsFromMap(genericParameterTypes);
-
+        Type t = getActualTypeArguments(genericParameterTypes);
 
         if (null != keys && keys.size() > 0) {
             for (String key : keys) {

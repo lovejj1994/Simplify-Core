@@ -5,7 +5,6 @@ import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -29,14 +28,7 @@ public class ArrayListCodec extends AbstractJson implements IJson {
     public Object parse(Object o, Method m) {
         ArrayList al = (ArrayList) o;
         Type[] genericParameterTypes = m.getGenericParameterTypes();
-        Type t = null;
-        for (Type type : genericParameterTypes) {
-            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
-                for (Type t1 : ((ParameterizedType) type).getActualTypeArguments()) {
-                    t = t1;
-                }
-            }
-        }
+        Type t = getActualTypeArguments(genericParameterTypes);
         if (Objects.nonNull(t)) {
             ListIterator listIterator = al.listIterator();
             IJson suitableParseHandler = getSuitableParseHandler(t.getClass());

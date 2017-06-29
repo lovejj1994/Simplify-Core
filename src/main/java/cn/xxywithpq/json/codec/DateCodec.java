@@ -1,9 +1,12 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.SimpleDate;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
+import cn.xxywithpq.utils.StringUtils;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -24,6 +27,11 @@ public class DateCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
-        return null;
+        String date = o.toString();
+        if (StringUtils.isNumeric(date)) {
+            return SimpleDate.objectToDate(((BigDecimal) o).longValue());
+        } else {
+            return SimpleDate.objectToDate(date);
+        }
     }
 }
