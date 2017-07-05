@@ -481,6 +481,19 @@ public class JsonTest {
         types2.add(user1);
         group.setType1(types2);
         group.setDate(new Date());
+
+        User friend1 = new User();
+        friend1.setId("2");
+        friend1.setAge(23l);
+        friend1.setName("friend1");
+        User friend2 = new User();
+        friend2.setId("2");
+        friend2.setAge(23l);
+        friend2.setName("friend2");
+
+        User[] friends = {friend1, friend2};
+        user2.setFriends(friends);
+
         String s1 = JSON.toJSONString(group, SerializerFeature.DisableCircularReferenceDetect);
         String s2 = Json.toJsonString(group);
         assertEquals(s1, s2);

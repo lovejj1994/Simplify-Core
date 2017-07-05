@@ -6,7 +6,7 @@ package cn.xxywithpq.json.Bean;
 public class BaseEntity {
     String id;
 
-    private String getId() {
+    public String getId() {
         return id;
     }
 

@@ -89,9 +89,13 @@ public class ObjectCodec extends AbstractJson implements IJson {
                 }
             }
         }
-
         try {
-            Class<?> aClass = Class.forName(t.getTypeName());
+            Class<?> aClass;
+            if (Objects.isNull(t)) {
+                aClass = m.getParameterTypes()[0].getComponentType();
+            } else {
+                aClass = Class.forName(t.getTypeName());
+            }
             Object o1 = aClass.newInstance();
             //查找该类所有声明的方法（除Object）
             List<Method> allDeclaredMethods = ReflectionUtils.getAllDeclaredMethods(aClass);

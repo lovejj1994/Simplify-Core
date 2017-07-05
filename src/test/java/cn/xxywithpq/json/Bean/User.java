@@ -8,8 +8,18 @@ public class User extends BaseEntity {
     private String name;
     private Long age;
 
+    private User[] friends;
+
     public Map<String, Integer> getGrades() {
         return grades;
+    }
+
+    public User[] getFriends() {
+        return friends;
+    }
+
+    public void setFriends(User[] friends) {
+        this.friends = friends;
     }
 
     public void setGrades(Map<String, Integer> grades) {

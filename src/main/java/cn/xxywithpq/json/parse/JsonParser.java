@@ -100,7 +100,7 @@ public class JsonParser extends AbstractJson {
                     }
                     //碰到 }
                     case Const.POST_BRACE_CHAR: {
-                        groupJsonObject(stacks);
+                        groupJsonObject(stacks, status);
                         break;
                     }
                     //碰到 "
@@ -112,7 +112,7 @@ public class JsonParser extends AbstractJson {
                         } else if (Const.VALUE.equals(status)) {
                             StringBuffer sb = new StringBuffer();
                             stacks.push(sb);
-                            status = Const.READING;
+                            status = Const.READINGSTRING;
                         }
                         break;
                     }
@@ -123,7 +123,7 @@ public class JsonParser extends AbstractJson {
                     }
                     //碰到 ,
                     case Const.COMMA_CHAR: {
-                        groupJsonObject(stacks);
+                        groupJsonObject(stacks, status);
                         if (JsonArray.class == stacks.peek().getClass()) {
                             if (i + 1 < chars.length) {
                                 char c = chars[i + 1];
@@ -171,7 +171,10 @@ public class JsonParser extends AbstractJson {
                             StringBuffer sb = new StringBuffer();
                             stacks.push(sb);
                         }
-                        status = Const.READING;
+                        if (Const.READINGSTRING.equals(status)) {
+                        } else {
+                            status = Const.READING;
+                        }
                         StringBuffer sb = (StringBuffer) stacks.pop();
                         sb.append(chars[i]);
                         stacks.push(sb);
@@ -200,7 +203,7 @@ public class JsonParser extends AbstractJson {
         return 1;
     }
 
-    private void groupJsonObject(Stack stacks) {
+    private void groupJsonObject(Stack stacks, String status) {
 
         if (StringBuffer.class == stacks.peek().getClass()) {
 
@@ -212,7 +215,11 @@ public class JsonParser extends AbstractJson {
                 if (JsonObject.class == stacks.peek().getClass()) {
                     JsonObject jsonObject = (JsonObject) stacks.pop();
                     String s = value.toString();
-                    if (StringUtils.isNumeric(s)) {
+
+                    if (Const.READINGSTRING.equals(status)) {
+                        jsonObject.put(key.toString(), s);
+                        status = Const.READING;
+                    } else if (StringUtils.isNumeric(s)) {
                         if (StringUtils.isIntegerNumeric(s)) {
                             jsonObject.put(key.toString(), new Integer(s));
                         } else {
@@ -225,7 +232,6 @@ public class JsonParser extends AbstractJson {
                 } else {
                     throw new RuntimeException("The structure of jsonString is wrong ");
                 }
-
             } else if (JsonArray.class == stacks.peek().getClass()) {
                 JsonArray jsonArray = (JsonArray) stacks.pop();
                 String s = value.toString();

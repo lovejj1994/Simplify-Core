@@ -23,6 +23,9 @@ public class StringCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
+        if (Number.class.isAssignableFrom(o.getClass())) {
+            return o.toString();
+        }
         return o;
     }
 }

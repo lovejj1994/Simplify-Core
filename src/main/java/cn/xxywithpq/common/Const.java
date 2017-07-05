@@ -58,4 +58,5 @@ public class Const {
     public static final String KEY = "KEY";
     public static final String VALUE = "VALUE";
     public static final String READING = "READING";
+    public static final String READINGSTRING = "READINGSTRING";
 }
