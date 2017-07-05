@@ -65,7 +65,7 @@ public abstract class AbstractJson {
     }
 
     protected void localTimeHandle(StringBuffer sb, LocalTime lt) {
-        DateTimeFormatter isoTime = DateTimeFormatter.ISO_TIME;
+        DateTimeFormatter isoTime = DateTimeFormatterExt.ISO_LOCAL_TIME;
         sb.append(Const.SINGLE_QUOTES + isoTime.format(lt) + Const.SINGLE_QUOTES);
     }
 
@@ -130,8 +130,6 @@ public abstract class AbstractJson {
                 return new CollectionCodec();
             case Const.ARRAYLIST_TYPE:
                 return new ArrayListCodec();
-            case Const.HASHMAP_TYPE:
-                return new HashMapCodec();
             case Const.MAP_TYPE:
                 return new MapCodec();
             case Const.STRING_TYPE:

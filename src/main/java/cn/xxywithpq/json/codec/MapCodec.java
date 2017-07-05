@@ -3,13 +3,16 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
+import cn.xxywithpq.json.JsonException;
+import cn.xxywithpq.json.parse.JsonObject;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Map 解析器
@@ -29,25 +32,80 @@ public class MapCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
-        Map<String, Object> p = (HashMap) o;
-
-        Set<String> keys = p.keySet();
-
         Type[] genericParameterTypes = m.getGenericParameterTypes();
         Type t = getActualTypeArguments(genericParameterTypes);
+        Class<?> rawType = ((ParameterizedTypeImpl) genericParameterTypes[0]).getRawType();
+        Map<Object, Object> p = createMap(rawType);
+        JsonObject jo = (JsonObject) o;
 
-        if (null != keys && keys.size() > 0) {
-            for (String key : keys) {
-                Object oo = p.get(key);
+        Set<String> keys = jo.keySet();
+
+        if (null != jo && jo.size() > 0) {
+            for (Object key : keys) {
+                Object oo = jo.get(key);
                 try {
                     Class<?> aClass = Class.forName(t.getTypeName());
                     IJson suitableHandler = getSuitableParseHandler(aClass);
                     Object parse = suitableHandler.parse(oo, m);
-                    p.replace(key, parse);
+                    p.put(key, parse);
                 } catch (ClassNotFoundException e) {
                 }
             }
         }
         return p;
+    }
+
+    protected Map<Object, Object> createMap(Type type) {
+        // TODO: 2017/7/5  Properties key可能不为String，要增加这个Properties类型的测试用例
+        if (type == Properties.class) {
+            return new Properties();
+        }
+
+        if (type == Hashtable.class) {
+            return new Hashtable();
+        }
+
+        if (type == IdentityHashMap.class) {
+            return new IdentityHashMap();
+        }
+
+        if (type == SortedMap.class || type == TreeMap.class) {
+            return new TreeMap();
+        }
+
+        if (type == ConcurrentMap.class || type == ConcurrentHashMap.class) {
+            return new ConcurrentHashMap();
+        }
+
+        if (type == Map.class || type == HashMap.class) {
+            return new HashMap();
+        }
+
+        if (type == LinkedHashMap.class) {
+            return new LinkedHashMap();
+        }
+
+        if (type instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+
+            Type rawType = parameterizedType.getRawType();
+            if (EnumMap.class.equals(rawType)) {
+                Type[] actualArgs = parameterizedType.getActualTypeArguments();
+                return new EnumMap((Class) actualArgs[0]);
+            }
+
+            return createMap(rawType);
+        }
+
+        Class<?> clazz = (Class<?>) type;
+        if (clazz.isInterface()) {
+            throw new JsonException("unsupport type " + type);
+        }
+
+        try {
+            return (Map<Object, Object>) clazz.newInstance();
+        } catch (Exception e) {
+            throw new JsonException("unsupport type " + type, e);
+        }
     }
 }
