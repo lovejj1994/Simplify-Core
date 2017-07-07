@@ -3,6 +3,7 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
+import cn.xxywithpq.json.JsonException;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -28,17 +29,53 @@ public class CollectionCodec extends AbstractJson implements IJson {
     @Override
     public Object parse(Object o, Method m) {
         ArrayList al = (ArrayList) o;
-        Type[] genericParameterTypes = m.getGenericParameterTypes();
-        Type t = getActualTypeArguments(genericParameterTypes);
+        Type t = getActualTypeArguments(m);
+        Class<?> rawClass = getParameterTypes(m);
+        Collection collection = createCollection(rawClass);
         if (Objects.nonNull(t)) {
             ListIterator listIterator = al.listIterator();
             IJson suitableParseHandler = getSuitableParseHandler(t.getClass());
             while (listIterator.hasNext()) {
                 Object next = listIterator.next();
                 Object parse = suitableParseHandler.parse(next, m);
-                listIterator.set(parse);
+                collection.add(parse);
+            }
+        } else {
+            collection.addAll(al);
+        }
+        return collection;
+    }
+
+    private static Collection createCollection(Class rawClass) {
+//        Class<?> rawClass = getRawClass(type);
+        Type type = rawClass.getGenericSuperclass();
+        Collection list;
+        if (rawClass == AbstractCollection.class //
+                || rawClass == Collection.class) {
+            list = new ArrayList();
+        } else if (rawClass.isAssignableFrom(HashSet.class)) {
+            list = new HashSet();
+        } else if (rawClass.isAssignableFrom(LinkedHashSet.class)) {
+            list = new LinkedHashSet();
+        } else if (rawClass.isAssignableFrom(TreeSet.class)) {
+            list = new TreeSet();
+        } else if (rawClass.isAssignableFrom(ArrayList.class)) {
+            list = new ArrayList();
+        } else if (rawClass.isAssignableFrom(EnumSet.class)) {
+            Type itemType;
+            if (type instanceof ParameterizedType) {
+                itemType = ((ParameterizedType) type).getActualTypeArguments()[0];
+            } else {
+                itemType = Object.class;
+            }
+            list = EnumSet.noneOf((Class<Enum>) itemType);
+        } else {
+            try {
+                list = (Collection) rawClass.newInstance();
+            } catch (Exception e) {
+                throw new JsonException("create instance error, class " + rawClass.getName());
             }
         }
-        return al;
+        return list;
     }
 }

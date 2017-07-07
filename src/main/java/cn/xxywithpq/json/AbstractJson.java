@@ -5,8 +5,9 @@ import cn.xxywithpq.common.Const;
 import cn.xxywithpq.date.ext.DateTimeFormatterExt;
 import cn.xxywithpq.json.codec.*;
 import cn.xxywithpq.json.serializer.JsonSerializer;
+import cn.xxywithpq.utils.ReflectionUtils;
 
-import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -128,8 +129,6 @@ public abstract class AbstractJson {
                 return new CollectionCodec();
             case Const.COLLECTION_TYPE:
                 return new CollectionCodec();
-            case Const.ARRAYLIST_TYPE:
-                return new ArrayListCodec();
             case Const.MAP_TYPE:
                 return new MapCodec();
             case Const.STRING_TYPE:
@@ -153,20 +152,32 @@ public abstract class AbstractJson {
         }
     }
 
-    protected Type getActualTypeArguments(Type[] genericParameterTypes) {
+    /**
+     * 查找Map中的Value泛型
+     *
+     * @param m
+     * @return
+     */
+    protected Type getActualTypeArguments(Method m) {
+        Type[] genericParameterTypes = m.getGenericParameterTypes();
         for (Type type : genericParameterTypes) {
-            if (ParameterizedType.class.isAssignableFrom(type.getClass())) {
-                Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
-                if (actualTypeArguments.length > 1) {
-                    for (int i = 1; i < actualTypeArguments.length; i++) {
-                        return actualTypeArguments[i];
-                    }
-                } else {
-                    return actualTypeArguments[0];
-                }
+            Type[] actualTypeArguments = ReflectionUtils.getActualTypeArguments(type);
+            if (null == actualTypeArguments || actualTypeArguments.length == 0)
+                return null;
+            //Map 取value的泛型
+            if (actualTypeArguments.length > 1) {
+                return actualTypeArguments[1];
+                //Collection 取泛型
+            } else {
+                return actualTypeArguments[0];
             }
         }
         return null;
+    }
+
+    protected Class<?> getParameterTypes(Method m) {
+        Class<?>[] parameterTypes = m.getParameterTypes();
+        return parameterTypes[0];
     }
 
 }

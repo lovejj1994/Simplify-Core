@@ -190,18 +190,18 @@ public class JsonParser extends AbstractJson {
         }
     }
 
-    private int readValue(Character[] chars, int begin) {
-
-        List<Character> characters = Arrays.asList(chars).subList(begin, chars.length);
-        characters.toString();
-        Pattern pattern = Pattern.compile("(.*)[.|,|\"|:*].*");
-        Matcher isNum = pattern.matcher(characters.toString());
-        if (isNum.matches()) {
-            return begin + isNum.end(1);
-        }
-
-        return 1;
-    }
+//    private int readValue(Character[] chars, int begin) {
+//
+//        List<Character> characters = Arrays.asList(chars).subList(begin, chars.length);
+//        characters.toString();
+//        Pattern pattern = Pattern.compile("(.*)[.|,|\"|:*].*");
+//        Matcher isNum = pattern.matcher(characters.toString());
+//        if (isNum.matches()) {
+//            return begin + isNum.end(1);
+//        }
+//
+//        return 1;
+//    }
 
     private void groupJsonObject(Stack stacks, String status) {
 

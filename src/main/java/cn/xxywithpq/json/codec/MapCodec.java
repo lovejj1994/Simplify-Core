@@ -5,7 +5,6 @@ import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.JsonException;
 import cn.xxywithpq.json.parse.JsonObject;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -32,9 +31,9 @@ public class MapCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
-        Type[] genericParameterTypes = m.getGenericParameterTypes();
-        Type t = getActualTypeArguments(genericParameterTypes);
-        Class<?> rawType = ((ParameterizedTypeImpl) genericParameterTypes[0]).getRawType();
+
+        Class<?> rawType = getParameterTypes(m);
+        Type t = getActualTypeArguments(m);
         Map<Object, Object> p = createMap(rawType);
         JsonObject jo = (JsonObject) o;
 
@@ -49,13 +48,14 @@ public class MapCodec extends AbstractJson implements IJson {
                     Object parse = suitableHandler.parse(oo, m);
                     p.put(key, parse);
                 } catch (ClassNotFoundException e) {
+                    throw new JsonException("class not found ", e);
                 }
             }
         }
         return p;
     }
 
-    protected Map<Object, Object> createMap(Type type) {
+    private Map<Object, Object> createMap(Type type) {
         // TODO: 2017/7/5  Properties key可能不为String，要增加这个Properties类型的测试用例
         if (type == Properties.class) {
             return new Properties();

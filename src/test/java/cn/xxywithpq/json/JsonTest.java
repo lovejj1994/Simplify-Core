@@ -518,7 +518,7 @@ public class JsonTest {
             assertEquals(i, i1);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new JsonException(e);
         }
     }
 

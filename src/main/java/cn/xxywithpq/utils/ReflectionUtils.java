@@ -257,6 +257,29 @@ public class ReflectionUtils {
         return list;
     }
 
+    /**
+     * 查找Type中的参数泛型
+     *
+     * @param t
+     * @return
+     */
+    public static Type[] getActualTypeArguments(Type t) {
+        if (ParameterizedType.class.isAssignableFrom(t.getClass())) {
+            return ((ParameterizedType) t).getActualTypeArguments();
+        }
+        return null;
+    }
+
+//    /**
+//     * 查找Type中的参数泛型
+//     *
+//     * @param t
+//     * @return
+//     */
+//    public static Type[] getRawClass(Type t) {
+//        return m.getParameterTypes();
+//    }
+
 
 //    /**
 //     * Get all declared methods on the leaf class and all superclasses.
