@@ -29,7 +29,7 @@ public class ArrayCodec extends AbstractJson implements IJson {
     public Object parse(Object o, Method m) {
         ArrayList al = (ArrayList) o;
         ListIterator listIterator = al.listIterator();
-        IJson suitableParseHandler = getSuitableParseHandler(m.getParameterTypes()[0].getComponentType());
+        IJson suitableParseHandler = getSuitableHandler(m.getParameterTypes()[0].getComponentType());
         while (listIterator.hasNext()) {
             Object next = listIterator.next();
             Object parse = suitableParseHandler.parse(next, m);

@@ -34,7 +34,7 @@ public class CollectionCodec extends AbstractJson implements IJson {
         Collection collection = createCollection(rawClass);
         if (Objects.nonNull(t)) {
             ListIterator listIterator = al.listIterator();
-            IJson suitableParseHandler = getSuitableParseHandler(t.getClass());
+            IJson suitableParseHandler = getSuitableHandler(t.getClass());
             while (listIterator.hasNext()) {
                 Object next = listIterator.next();
                 Object parse = suitableParseHandler.parse(next, m);

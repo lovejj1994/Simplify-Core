@@ -44,7 +44,7 @@ public class MapCodec extends AbstractJson implements IJson {
                 Object oo = jo.get(key);
                 try {
                     Class<?> aClass = Class.forName(t.getTypeName());
-                    IJson suitableHandler = getSuitableParseHandler(aClass);
+                    IJson suitableHandler = getSuitableHandler(aClass);
                     Object parse = suitableHandler.parse(oo, m);
                     p.put(key, parse);
                 } catch (ClassNotFoundException e) {

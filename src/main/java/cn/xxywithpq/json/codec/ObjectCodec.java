@@ -123,7 +123,7 @@ public class ObjectCodec extends AbstractJson implements IJson {
                     variable = variable.substring(0, 1).toLowerCase() + variable.substring(1, variable.length());
                     if (jo.containsKey(variable)) {
                         Object oo = jo.get(variable);
-                        IJson suitableHandler = getSuitableParseHandler(parameterType);
+                        IJson suitableHandler = getSuitableHandler(parameterType);
                         Object parse = suitableHandler.parse(oo, md);
                         try {
                             md.invoke(o1, parse);

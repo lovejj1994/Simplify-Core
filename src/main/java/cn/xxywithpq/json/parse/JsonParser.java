@@ -67,7 +67,7 @@ public class JsonParser extends AbstractJson {
                     variable = variable.substring(0, 1).toLowerCase() + variable.substring(1, variable.length());
                     if (jsonObject.containsKey(variable)) {
                         Object oo = jsonObject.get(variable);
-                        IJson suitableHandler = getSuitableParseHandler(parameterType);
+                        IJson suitableHandler = getSuitableHandler(parameterType);
                         Object parse = suitableHandler.parse(oo, m);
                         m.invoke(t, parse);
                     }

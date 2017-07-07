@@ -114,43 +114,44 @@ public abstract class AbstractJson {
         }
     }
 
-    protected IJson getSuitableParseHandler(Class c) {
-
-        if (c.isArray()) {
-            return new ArrayCodec();
-        }
-
-        switch (c.getTypeName()) {
-            case Const.LONG_TYPE:
-                return new LongCodec();
-            case Const.INTEGER_TYPE:
-                return new IntegerCodec();
-            case Const.LIST_TYPE:
-                return new CollectionCodec();
-            case Const.COLLECTION_TYPE:
-                return new CollectionCodec();
-            case Const.MAP_TYPE:
-                return new MapCodec();
-            case Const.STRING_TYPE:
-                return new StringCodec();
-            case Const.BOOLEAN_TYPE:
-                return new BooleanCodec();
-            case Const.CHAR_TYPE:
-                return new CharCodec();
-            case Const.DATE_TYPE:
-                return new DateCodec();
-            case Const.LOCALDATE_TYPE:
-                return new LocalDateCodec();
-            case Const.LOCALDATETIME_TYPE:
-                return new LocalDateTimeCodec();
-            case Const.LOCALTIME_TYPE:
-                return new LocalTimeCodec();
-            case Const.BIGDECIMAL_TYPE:
-                return new BigDecimalCodec();
-            default:
-                return new ObjectCodec();
-        }
-    }
+//    @Deprecated
+//    protected IJson getSuitableParseHandler(Class c) {
+//
+//        if (c.isArray()) {
+//            return new ArrayCodec();
+//        }
+//
+//        switch (c.getTypeName()) {
+//            case Const.LONG_TYPE:
+//                return new LongCodec();
+//            case Const.INTEGER_TYPE:
+//                return new IntegerCodec();
+//            case Const.LIST_TYPE:
+//                return new CollectionCodec();
+//            case Const.COLLECTION_TYPE:
+//                return new CollectionCodec();
+//            case Const.MAP_TYPE:
+//                return new MapCodec();
+//            case Const.STRING_TYPE:
+//                return new StringCodec();
+//            case Const.BOOLEAN_TYPE:
+//                return new BooleanCodec();
+//            case Const.CHAR_TYPE:
+//                return new CharCodec();
+//            case Const.DATE_TYPE:
+//                return new DateCodec();
+//            case Const.LOCALDATE_TYPE:
+//                return new LocalDateCodec();
+//            case Const.LOCALDATETIME_TYPE:
+//                return new LocalDateTimeCodec();
+//            case Const.LOCALTIME_TYPE:
+//                return new LocalTimeCodec();
+//            case Const.BIGDECIMAL_TYPE:
+//                return new BigDecimalCodec();
+//            default:
+//                return new ObjectCodec();
+//        }
+//    }
 
     /**
      * 查找Map中的Value泛型
