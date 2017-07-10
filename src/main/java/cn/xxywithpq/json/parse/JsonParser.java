@@ -55,7 +55,7 @@ public class JsonParser extends AbstractJson {
                     }
                 }
             }
-            if (null != publicSetMethods && publicSetMethods.size() > 0) {
+            if (publicSetMethods.size() > 0) {
                 for (Method m : publicSetMethods) {
                     String methodName = m.getName();
                     String variable = methodName.substring(3, methodName.length());
@@ -78,7 +78,7 @@ public class JsonParser extends AbstractJson {
     }
 
     public JsonObject parseObject(String text) {
-        Stack<Object> stacks = new Stack();
+        Stack<Object> stacks = new Stack<>();
 
         String status = Const.BEGIN;
 
@@ -142,7 +142,7 @@ public class JsonParser extends AbstractJson {
                     }
                     //碰到 [
                     case Const.PRE_BRACKET_CHAR: {
-                        JsonArray jsonArray = new JsonArray();
+                        JsonArray<Object> jsonArray = new JsonArray<>();
                         stacks.push(jsonArray);
                         break;
                     }
@@ -151,7 +151,7 @@ public class JsonParser extends AbstractJson {
                         if (JsonObject.class == stacks.peek().getClass()) {
                             JsonObject jsonObject = (JsonObject) stacks.pop();
                             if (JsonArray.class == stacks.peek().getClass()) {
-                                JsonArray jsonArray = (JsonArray) stacks.pop();
+                                JsonArray<Object> jsonArray = (JsonArray<Object>) stacks.pop();
                                 jsonArray.add(jsonObject);
                                 stacks.push(jsonArray);
                             }
@@ -159,7 +159,7 @@ public class JsonParser extends AbstractJson {
                             StringBuffer value = (StringBuffer) stacks.pop();
                             String s = value.toString();
                             if (JsonArray.class == stacks.peek().getClass()) {
-                                JsonArray jsonArray = (JsonArray) stacks.pop();
+                                JsonArray<Object> jsonArray = (JsonArray<Object>) stacks.pop();
                                 addValueForJsonArray(jsonArray, s);
                                 stacks.push(jsonArray);
                             }
@@ -203,7 +203,7 @@ public class JsonParser extends AbstractJson {
 //        return 1;
 //    }
 
-    private void groupJsonObject(Stack stacks, String status) {
+    private void groupJsonObject(Stack<Object> stacks, String status) {
 
         if (StringBuffer.class == stacks.peek().getClass()) {
 
@@ -233,7 +233,7 @@ public class JsonParser extends AbstractJson {
                     throw new RuntimeException("The structure of jsonString is wrong ");
                 }
             } else if (JsonArray.class == stacks.peek().getClass()) {
-                JsonArray jsonArray = (JsonArray) stacks.pop();
+                JsonArray<Object> jsonArray = (JsonArray<Object>) stacks.pop();
                 String s = value.toString();
                 addValueForJsonArray(jsonArray, s);
                 stacks.push(jsonArray);
@@ -249,7 +249,7 @@ public class JsonParser extends AbstractJson {
                 StringBuffer key = (StringBuffer) stacks.pop();
                 groupJsonObject(stacks, key, value);
             } else if (JsonArray.class == stacks.peek().getClass()) {
-                JsonArray array = (JsonArray) stacks.pop();
+                JsonArray<Object> array = (JsonArray<Object>) stacks.pop();
                 array.add(value);
                 stacks.push(array);
             } else {
@@ -257,7 +257,7 @@ public class JsonParser extends AbstractJson {
             }
             //整合StringBuffer&JsonArray 到jsonObject
         } else if (JsonArray.class == stacks.peek().getClass()) {
-            JsonArray value = (JsonArray) stacks.pop();
+            JsonArray<Object> value = (JsonArray<Object>) stacks.pop();
 
             if (StringBuffer.class == stacks.peek().getClass()) {
                 StringBuffer key = (StringBuffer) stacks.pop();
@@ -266,7 +266,7 @@ public class JsonParser extends AbstractJson {
         }
     }
 
-    private void groupJsonObject(Stack stacks, Object key, Object value) {
+    private void groupJsonObject(Stack<Object> stacks, Object key, Object value) {
         if (JsonObject.class == stacks.peek().getClass()) {
             JsonObject jsonObject = (JsonObject) stacks.pop();
             jsonObject.put(key.toString(), value);
@@ -276,7 +276,7 @@ public class JsonParser extends AbstractJson {
         }
     }
 
-    private void addValueForJsonArray(JsonArray jsonArray, String object) {
+    private void addValueForJsonArray(JsonArray<Object> jsonArray, String object) {
         if (StringUtils.isNumeric(object)) {
             if (StringUtils.isIntegerNumeric(object)) {
                 jsonArray.add(new Integer(object));

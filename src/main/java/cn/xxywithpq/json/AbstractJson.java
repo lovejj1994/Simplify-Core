@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.*;
 
 /**
@@ -87,6 +88,10 @@ public abstract class AbstractJson {
         if (c.isArray()) {
             return new ArrayCodec();
         }
+        if (Temporal.class.isAssignableFrom(c)) {
+            return new TemporalCodec();
+        }
+
 
         switch (c.getTypeName()) {
             case Const.NUMBER_TYPE:
@@ -103,12 +108,12 @@ public abstract class AbstractJson {
                 return new CharCodec();
             case Const.DATE_TYPE:
                 return new DateCodec();
-            case Const.LOCALDATE_TYPE:
-                return new LocalDateCodec();
-            case Const.LOCALDATETIME_TYPE:
-                return new LocalDateTimeCodec();
-            case Const.LOCALTIME_TYPE:
-                return new LocalTimeCodec();
+//            case Const.LOCALDATE_TYPE:
+//                return new LocalDateCodec();
+//            case Const.LOCALDATETIME_TYPE:
+//                return new LocalDateTimeCodec();
+//            case Const.LOCALTIME_TYPE:
+//                return new LocalTimeCodec();
             default:
                 return new ObjectCodec();
         }
