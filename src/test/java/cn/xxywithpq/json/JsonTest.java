@@ -3,7 +3,6 @@ package cn.xxywithpq.json;
 import cn.xxywithpq.Json;
 import cn.xxywithpq.json.Bean.Group;
 import cn.xxywithpq.json.Bean.User;
-import cn.xxywithpq.json.parse.JsonObject;
 import cn.xxywithpq.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

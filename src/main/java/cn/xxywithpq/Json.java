@@ -1,6 +1,6 @@
 package cn.xxywithpq;
 
-import cn.xxywithpq.json.parse.JsonObject;
+import cn.xxywithpq.json.JsonObject;
 import cn.xxywithpq.json.parse.JsonParser;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 

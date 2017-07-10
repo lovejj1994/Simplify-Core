@@ -3,7 +3,7 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
-import cn.xxywithpq.json.parse.JsonObject;
+import cn.xxywithpq.json.JsonObject;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 import cn.xxywithpq.utils.ReflectionUtils;
 

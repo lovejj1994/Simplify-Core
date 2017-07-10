@@ -4,7 +4,7 @@ import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.JsonException;
-import cn.xxywithpq.json.parse.JsonObject;
+import cn.xxywithpq.json.JsonObject;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;

@@ -1,4 +1,4 @@
-package cn.xxywithpq.json.parse;
+package cn.xxywithpq.json;
 
 import cn.xxywithpq.Json;
 
