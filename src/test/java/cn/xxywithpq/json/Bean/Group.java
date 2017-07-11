@@ -1,5 +1,8 @@
 package cn.xxywithpq.json.Bean;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Group {
@@ -15,6 +18,37 @@ public class Group {
     private List<User> users = new ArrayList<User>();
 
     private Date date;
+
+    private LocalDateTime localDateTime;
+
+    private LocalDate localDate;
+
+    private LocalTime localTime;
+
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public LocalTime getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(LocalTime localTime) {
+        this.localTime = localTime;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
 
     public Date getDate() {
         return date;

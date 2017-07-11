@@ -470,6 +470,9 @@ public class JsonTest {
         group.setName("group1");
         group.addUser(user1);
         group.addUser(user2);
+        group.setLocalDate(LocalDate.now());
+        group.setLocalDateTime(LocalDateTime.now());
+        group.setLocalTime(LocalTime.now());
         ArrayList types1 = new ArrayList();
         types1.add(123l);
         types1.add(12231213);

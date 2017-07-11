@@ -1,5 +1,6 @@
 package cn.xxywithpq.json.codec;
 
+import cn.xxywithpq.date.ext.DateTimeFormatterExt;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
 import cn.xxywithpq.json.JsonException;
@@ -40,6 +41,14 @@ public class TemporalCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
+        Class<?> parameterTypes = getParameterTypes(m);
+        if (LocalDate.class == parameterTypes) {
+            return LocalDate.parse(o.toString());
+        } else if (LocalDateTime.class == parameterTypes) {
+            return LocalDateTime.parse(o.toString(), DateTimeFormatterExt.ISO_LOCAL_DATE_TIME);
+        } else if (LocalTime.class == parameterTypes) {
+            return LocalTime.parse(o.toString());
+        }
         return null;
     }
 }

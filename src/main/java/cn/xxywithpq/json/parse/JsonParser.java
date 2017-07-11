@@ -106,19 +106,20 @@ public class JsonParser extends AbstractJson {
                     //碰到 "
                     case Const.SINGLE_QUOTES_CHAR: {
                         if (Const.KEY.equals(status)) {
-//                            status = Const.READING;
-                            StringBuffer sb = new StringBuffer();
-                            stacks.push(sb);
+                            pushNewString(stacks);
                         } else if (Const.VALUE.equals(status)) {
-                            StringBuffer sb = new StringBuffer();
-                            stacks.push(sb);
+                            pushNewString(stacks);
                             status = Const.READINGSTRING;
                         }
                         break;
                     }
                     //碰到 :
                     case Const.COLON_CHAR: {
-                        status = Const.VALUE;
+                        if (!status.equals(Const.READINGSTRING)) {
+                            status = Const.VALUE;
+                        } else {
+                            readValue(stacks, chars, i);
+                        }
                         break;
                     }
                     //碰到 ,
@@ -168,16 +169,13 @@ public class JsonParser extends AbstractJson {
                     }
                     default: {
                         if (Const.VALUE.equals(status)) {
-                            StringBuffer sb = new StringBuffer();
-                            stacks.push(sb);
+                            pushNewString(stacks);
                         }
                         if (Const.READINGSTRING.equals(status)) {
                         } else {
                             status = Const.READING;
                         }
-                        StringBuffer sb = (StringBuffer) stacks.pop();
-                        sb.append(chars[i]);
-                        stacks.push(sb);
+                        readValue(stacks, chars, i);
                         break;
                     }
                 }
@@ -190,18 +188,16 @@ public class JsonParser extends AbstractJson {
         }
     }
 
-//    private int readValue(Character[] chars, int begin) {
-//
-//        List<Character> characters = Arrays.asList(chars).subList(begin, chars.length);
-//        characters.toString();
-//        Pattern pattern = Pattern.compile("(.*)[.|,|\"|:*].*");
-//        Matcher isNum = pattern.matcher(characters.toString());
-//        if (isNum.matches()) {
-//            return begin + isNum.end(1);
-//        }
-//
-//        return 1;
-//    }
+    private void readValue(Stack stacks, char[] chars, int i) {
+        StringBuffer sb = (StringBuffer) stacks.pop();
+        sb.append(chars[i]);
+        stacks.push(sb);
+    }
+
+    private void pushNewString(Stack stacks) {
+        StringBuffer sb = new StringBuffer();
+        stacks.push(sb);
+    }
 
     private void groupJsonObject(Stack<Object> stacks, String status) {
 
