@@ -23,6 +23,6 @@ public class CharCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
-        return null;
+        return ((String) o).toCharArray()[0];
     }
 }

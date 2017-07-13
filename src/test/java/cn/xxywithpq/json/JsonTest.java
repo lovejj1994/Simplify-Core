@@ -415,7 +415,7 @@ public class JsonTest {
         user2.setGrades(grades2);
         Group group = new Group();
         group.setId(1l);
-        group.setName("group1");
+        group.setJudge("group1");
         group.addUser(user1);
         group.addUser(user2);
 
@@ -467,7 +467,7 @@ public class JsonTest {
         user2.setGrades(grades2);
         Group group = new Group();
         group.setId(1l);
-        group.setName("group1");
+        group.setJudge("false");
         group.addUser(user1);
         group.addUser(user2);
         group.setLocalDate(LocalDate.now());
@@ -530,6 +530,7 @@ public class JsonTest {
         boolean integerNumeric = StringUtils.isIntegerNumeric("123.12");
         boolean integerNumeric1 = StringUtils.isIntegerNumeric("123");
 //        boolean integerNumeric2 = StringUtils.isIntegerNumeric("123..23");
+//        System.out.println(StringUtils.isBoolean("false"));
     }
 
 }

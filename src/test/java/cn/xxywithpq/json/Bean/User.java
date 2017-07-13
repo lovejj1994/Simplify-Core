@@ -10,6 +10,25 @@ public class User extends BaseEntity {
 
     private User[] friends;
 
+    private boolean judge;
+    private char sex = 'a';
+
+    public boolean isJudge() {
+        return judge;
+    }
+
+    public void setJudge(boolean judge) {
+        this.judge = judge;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
+
     public Map<String, Integer> getGrades() {
         return grades;
     }

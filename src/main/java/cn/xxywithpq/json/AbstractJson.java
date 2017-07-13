@@ -28,7 +28,8 @@ public abstract class AbstractJson {
     }
 
     protected void characterHandle(StringBuffer sb, Character cs) {
-        sb.append(Const.SINGLE_QUOTES).append(cs).append(Const.SINGLE_QUOTES);
+
+        sb.append(Const.SINGLE_QUOTES).append(cs.charValue()).append(Const.SINGLE_QUOTES);
     }
 
     protected void numberHandle(StringBuffer sb, Number cs) {
@@ -74,15 +75,18 @@ public abstract class AbstractJson {
     protected IJson getSuitableHandler(Class c) {
 
         if (Collection.class.isAssignableFrom(c)) {
-            c = Collection.class;
+//            c = Collection.class;
+            return new CollectionCodec();
         }
 
         if (Map.class.isAssignableFrom(c)) {
-            c = Map.class;
+//            c = Map.class;
+            return new MapCodec();
         }
 
         if (Number.class.isAssignableFrom(c)) {
-            c = Number.class;
+//            c = Number.class;
+            return new NumberCodec();
         }
 
         if (c.isArray()) {
@@ -92,31 +96,40 @@ public abstract class AbstractJson {
             return new TemporalCodec();
         }
 
-
-        switch (c.getTypeName()) {
-            case Const.NUMBER_TYPE:
-                return new NumberCodec();
-            case Const.COLLECTION_TYPE:
-                return new CollectionCodec();
-            case Const.MAP_TYPE:
-                return new MapCodec();
-            case Const.STRING_TYPE:
-                return new StringCodec();
-            case Const.BOOLEAN_TYPE:
-                return new BooleanCodec();
-            case Const.CHAR_TYPE:
-                return new CharCodec();
-            case Const.DATE_TYPE:
-                return new DateCodec();
-//            case Const.LOCALDATE_TYPE:
-//                return new LocalDateCodec();
-//            case Const.LOCALDATETIME_TYPE:
-//                return new LocalDateTimeCodec();
-//            case Const.LOCALTIME_TYPE:
-//                return new LocalTimeCodec();
-            default:
-                return new ObjectCodec();
+        if (c == char.class || c == Character.class) {
+            return new CharCodec();
         }
+
+        if (c == boolean.class || c == Boolean.class) {
+            return new BooleanCodec();
+        }
+
+        if (c == String.class) {
+            return new StringCodec();
+        }
+
+        if (c == Date.class) {
+            return new DateCodec();
+        }
+
+//        switch (c.getTypeName()) {
+//            case Const.NUMBER_TYPE:
+//                return new NumberCodec();
+//            case Const.COLLECTION_TYPE:
+//                return new CollectionCodec();
+//            case Const.MAP_TYPE:
+//                return new MapCodec();
+////            case Const.STRING_TYPE:
+////                return new StringCodec();
+////            case Const.BOOLEAN_TYPE:
+////                return new BooleanCodec();
+////            case Const.CHAR_TYPE:
+////                return new CharCodec();
+//            case Const.DATE_TYPE:
+//                return new DateCodec();
+//            default:
+        return new ObjectCodec();
+//        }
     }
 
 //    @Deprecated
@@ -159,7 +172,7 @@ public abstract class AbstractJson {
 //    }
 
     /**
-     * 查找Map中的Value泛型
+     * 查找泛型类型
      *
      * @param m
      * @return

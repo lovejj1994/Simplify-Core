@@ -222,7 +222,12 @@ public class JsonParser extends AbstractJson {
                             jsonObject.put(key.toString(), new BigDecimal(s));
                         }
                     } else {
-                        jsonObject.put(key.toString(), s);
+                        boolean b = judgeBoolean(s);
+                        if (b) {
+                            jsonObject.put(key.toString(), new Boolean(s));
+                        } else {
+                            jsonObject.put(key.toString(), s);
+                        }
                     }
                     stacks.push(jsonObject);
                 } else {
@@ -282,5 +287,9 @@ public class JsonParser extends AbstractJson {
         } else {
             jsonArray.add(object);
         }
+    }
+
+    private boolean judgeBoolean(String s) {
+        return StringUtils.isBoolean(s);
     }
 }

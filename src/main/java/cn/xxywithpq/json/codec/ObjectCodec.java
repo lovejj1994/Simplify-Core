@@ -3,6 +3,7 @@ package cn.xxywithpq.json.codec;
 import cn.xxywithpq.common.Const;
 import cn.xxywithpq.json.AbstractJson;
 import cn.xxywithpq.json.IJson;
+import cn.xxywithpq.json.JsonException;
 import cn.xxywithpq.json.JsonObject;
 import cn.xxywithpq.json.serializer.JsonSerializer;
 import cn.xxywithpq.utils.ReflectionUtils;
@@ -37,7 +38,7 @@ public class ObjectCodec extends AbstractJson implements IJson {
         if (null != allDeclaredMethods && allDeclaredMethods.size() > 0) {
             for (Method m : allDeclaredMethods) {
                 String modifier = ReflectionUtils.getModifier(m);
-                if (modifier.contains(Const.PUBLIC) && m.getName().contains(Const.GET)) {
+                if (modifier.contains(Const.PUBLIC) && (m.getName().startsWith(Const.GET) || m.getName().startsWith(Const.IS))) {
                     publicGetMethods.add(m);
                 }
             }
@@ -45,10 +46,15 @@ public class ObjectCodec extends AbstractJson implements IJson {
 
         if (null != publicGetMethods && publicGetMethods.size() > 0) {
 
-            Collections.sort(publicGetMethods, (x, y) -> Collator.getInstance().compare(x.getName(), y.getName()));
+            Collections.sort(publicGetMethods, (x, y) -> Collator.getInstance().compare(x.getName().startsWith(Const.IS) ? x.getName().replace(Const.IS, Const.GET) : x.getName(), y.getName().startsWith(Const.IS) ? y.getName().replace(Const.IS, Const.GET) : y.getName()));
             for (Method method : publicGetMethods) {
                 String name = method.getName();
-                String substring = name.substring(3, name.length());
+                String substring;
+                if (name.startsWith(Const.IS)) {
+                    substring = name.substring(2, name.length());
+                } else {
+                    substring = name.substring(3, name.length());
+                }
                 char c = substring.charAt(0);
                 if (c >= 'A' && c <= 'Z') {
                     Character b = (char) (c + 32);
@@ -60,8 +66,10 @@ public class ObjectCodec extends AbstractJson implements IJson {
                         }
                     } catch (IllegalAccessException e) {
                         logger.severe(e.getMessage());
+                        throw new JsonException("serializerObject fail", e);
                     } catch (InvocationTargetException e) {
                         logger.severe(e.getMessage());
+                        throw new JsonException("serializerObject fail", e);
                     }
                 }
             }

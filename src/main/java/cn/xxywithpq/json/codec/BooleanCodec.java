@@ -19,6 +19,6 @@ public class BooleanCodec extends AbstractJson implements IJson {
 
     @Override
     public Object parse(Object o, Method m) {
-        return null;
+        return Boolean.getBoolean(o.toString());
     }
 }

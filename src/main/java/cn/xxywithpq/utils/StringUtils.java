@@ -147,6 +147,24 @@ public class StringUtils {
         } else {
             return false;
         }
+    }
 
+
+    /**
+     * 判断字符串是不是boolean, 先经过isNumeric(String str)判断是不是数字  再使用此方法
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isBoolean(String str) {
+        if (StringUtils.isBlank(str))
+            return false;
+        Pattern pattern = Pattern.compile("true|false");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

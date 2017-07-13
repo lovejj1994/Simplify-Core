@@ -9,7 +9,7 @@ public class Group {
 
     private Long id;
 
-    private String name;
+    private String judge;
     //基础类型
     private List type;
     //基础类型和类混搭
@@ -76,12 +76,12 @@ public class Group {
         this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getJudge() {
+        return judge;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setJudge(String judge) {
+        this.judge = judge;
     }
 
     public Long getId() {
