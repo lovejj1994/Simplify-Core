@@ -32,7 +32,6 @@ public class SerializationUtil {
             return arrayOutputStream.toByteArray();
         } catch (IOException e) {
             logger.severe(e.getMessage());
-            e.printStackTrace();
         }
         return null;
     }
@@ -57,10 +56,8 @@ public class SerializationUtil {
 
         } catch (IOException e) {
             logger.severe(e.getMessage());
-            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             logger.severe(e.getMessage());
-            e.printStackTrace();
         }
         return null;
     }

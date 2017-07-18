@@ -136,21 +136,25 @@ public class ObjectCodec extends AbstractJson implements IJson {
                         try {
                             md.invoke(o1, parse);
                         } catch (IllegalAccessException e) {
-                            e.printStackTrace();
+                            logger.severe(e.getMessage());
+                            throw new JsonException("ObjectCodec fail", e);
                         } catch (InvocationTargetException e) {
-                            e.printStackTrace();
+                            logger.severe(e.getMessage());
+                            throw new JsonException("ObjectCodec fail", e);
                         }
                     }
                 }
             }
             return o1;
         } catch (ClassNotFoundException e) {
-
+            logger.severe(e.getMessage());
+            throw new JsonException(e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            logger.severe(e.getMessage());
+            throw new JsonException(e);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            logger.severe(e.getMessage());
+            throw new JsonException(e);
         }
-        return null;
     }
 }
