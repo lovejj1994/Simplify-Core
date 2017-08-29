@@ -1,4 +1,4 @@
-package cn.xxywithpq.proxy.interceptor;
+package cn.xxywithpq.proxy.jdkproxy.interceptor;
 
 import cn.xxywithpq.proxy.jdkProxy.Interceptor;
 import cn.xxywithpq.proxy.jdkProxy.Intercepts;

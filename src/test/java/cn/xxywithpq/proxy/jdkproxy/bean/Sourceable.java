@@ -1,4 +1,4 @@
-package cn.xxywithpq.proxy.bean;
+package cn.xxywithpq.proxy.jdkproxy.bean;
 
 public interface Sourceable {
     public void method();

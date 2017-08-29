@@ -19,7 +19,7 @@ public class AopClassLoader extends ClassLoader implements Opcodes {
             //cn.xxywithpq.proxy.jdkProxy.bean.Asm
             InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("cn/xxywithpq/proxy/asmproxy/bean/Asm.class");
             ClassReader reader = new ClassReader(is);
-            reader.accept(new AopClassAdapter(ASM4, cw), ClassReader.SKIP_DEBUG);
+            reader.accept(new AopClassAdapter(ASM5, cw), ClassReader.SKIP_DEBUG);
             //
 
             byte[] code = cw.toByteArray();

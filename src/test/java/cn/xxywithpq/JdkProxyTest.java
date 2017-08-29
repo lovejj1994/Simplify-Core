@@ -3,9 +3,9 @@ package cn.xxywithpq;
 import cn.xxywithpq.proxy.asmproxy.AopClassLoader;
 import cn.xxywithpq.proxy.jdkProxy.Interceptor;
 import cn.xxywithpq.proxy.jdkProxy.Plugin;
-import cn.xxywithpq.proxy.bean.Source;
-import cn.xxywithpq.proxy.bean.Sourceable;
-import cn.xxywithpq.proxy.interceptor.MyInterceptor;
+import cn.xxywithpq.proxy.jdkproxy.bean.Source;
+import cn.xxywithpq.proxy.jdkproxy.bean.Sourceable;
+import cn.xxywithpq.proxy.jdkproxy.interceptor.MyInterceptor;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
