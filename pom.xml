@@ -28,11 +28,11 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
         <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>5.2</version>
+            <groupId>net.hasor</groupId>
+            <artifactId>hasor-core</artifactId>
+            <version>3.0.2</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
