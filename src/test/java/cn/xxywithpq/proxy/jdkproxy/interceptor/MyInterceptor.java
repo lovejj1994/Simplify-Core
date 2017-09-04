@@ -10,9 +10,9 @@ public class MyInterceptor implements Interceptor {
     public Object intercept(Invocation invocation) throws Throwable {
 
         System.out.println("进入 intercept");
-        invocation.proceed();
+        Object proceed = invocation.proceed();
         System.out.println("结束 intercept");
 
-        return null;
+        return proceed;
     }
 }
