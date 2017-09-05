@@ -1,13 +1,14 @@
 package cn.xxywithpq;
 
+import cn.xxywithpq.proxy.Proxy;
 import cn.xxywithpq.proxy.asmproxy.bean.Asm;
-import cn.xxywithpq.proxy.asmproxy.bean.Asm1;
-import cn.xxywithpq.proxy.jdkProxy.Interceptor;
-import cn.xxywithpq.proxy.jdkProxy.Proxy;
+import cn.xxywithpq.proxy.common.Interceptor;
 import cn.xxywithpq.proxy.jdkproxy.bean.Source;
 import cn.xxywithpq.proxy.jdkproxy.bean.Sourceable;
 import cn.xxywithpq.proxy.jdkproxy.interceptor.MyInterceptor;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author panqian
@@ -15,9 +16,9 @@ import org.junit.jupiter.api.Test;
 public class JdkProxyTest {
 
     @Test
-    void jdkProxy01() {
+    void jdkProxy01() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        System.out.println("===================JdkProxyTest01===================");
+        System.out.println("===================JdkProxyTest01 jdkProxy===================");
 
         Sourceable source = new Source();
 
@@ -33,26 +34,14 @@ public class JdkProxyTest {
 
 
     @Test
-    void jdkProxy02() {
+    void jdkProxy02() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        System.out.println("===================JdkProxyTest02===================");
+        System.out.println("===================JdkProxyTest02 asmProxy===================");
         try {
             Asm asm = new Asm();
             MyInterceptor myInterceptor = new MyInterceptor();
             Asm asm_tmp = null;
-            try {
-                asm_tmp = (Asm) Proxy.newProxyInstance(asm, myInterceptor);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-//                Method method = asm_tmp.getMethod("halloAop");
-//                Constructor<?> declaredConstructor = asm_tmp.getDeclaredConstructor(new Class[]{int.class});
-//                Object o = declaredConstructor.newInstance(new Object[]{1});
-//                Object invoke = method.invoke(o);
+            asm_tmp = (Asm) Proxy.wrap(asm, myInterceptor);
             asm_tmp.halloAop();
         } catch (ClassNotFoundException e) {
             System.out.println(e);
@@ -60,14 +49,11 @@ public class JdkProxyTest {
 //        AopClassAdapter aopClassAdapter = new AopClassAdapter();
     }
 
-
     @Test
-    void jdkProxy03() {
-        Asm asm = new Asm();
-        Asm1 asm1 = (Asm1) asm;
-        asm1.halloAop();
-        System.out.println("===================JdkProxyTest03===================");
+    public void getInterface() {
+        Class<? super Asm> superclass = Asm.class.getSuperclass();
+        Class<?>[] interfaces = Asm.class.getInterfaces();
 
+        System.out.println(interfaces);
     }
-
 }
