@@ -1,10 +1,10 @@
 package cn.xxywithpq.proxy.jdkproxy.interceptor;
 
-import cn.xxywithpq.proxy.jdkProxy.Interceptor;
-import cn.xxywithpq.proxy.jdkProxy.Intercepts;
-import cn.xxywithpq.proxy.jdkProxy.Invocation;
+import cn.xxywithpq.proxy.common.Interceptor;
+import cn.xxywithpq.proxy.common.Intercepts;
+import cn.xxywithpq.proxy.common.Invocation;
 
-@Intercepts(methods = {"method1"})
+@Intercepts(methods = {"method1", "halloAop"})
 public class MyInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

@@ -1,4 +1,4 @@
-package cn.xxywithpq.proxy.jdkProxy;
+package cn.xxywithpq.proxy.common;
 
 import java.lang.annotation.*;
 
