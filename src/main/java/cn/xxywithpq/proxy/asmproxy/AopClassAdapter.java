@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import static cn.xxywithpq.utils.ASMEngineTools.*;
 
 /**
- *
+ * 生成AOP代理类的 主要逻辑代码
  */
 class AopClassAdapter extends ClassVisitor implements Opcodes {
 

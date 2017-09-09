@@ -1,9 +1,12 @@
 package cn.xxywithpq.proxy;
 
-import cn.xxywithpq.proxy.asmproxy.AopClassLoader;
 import cn.xxywithpq.proxy.common.Interceptor;
 import cn.xxywithpq.proxy.common.Intercepts;
 import cn.xxywithpq.proxy.common.Invocation;
+import cn.xxywithpq.proxy.factory.ProxyFactory;
+import cn.xxywithpq.proxy.factory.service.ProxyService;
+import cn.xxywithpq.proxy.factory.service.impl.AsmProxyServiceImpl;
+import cn.xxywithpq.proxy.factory.service.impl.JDKProxyServiceImpl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -55,23 +58,21 @@ public class Proxy implements InvocationHandler {
      */
     public static Object wrap(Object target, Interceptor interceptor, boolean isJdkProxy) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 
-        ArrayList<Method> interceptsList = getInterceptsList(target, interceptor);
-        Class<?> type = target.getClass();
         //收集拦截方法
-        Class<?>[] interfaces = target.getClass().getInterfaces();
+        ArrayList<Method> interceptsList = getInterceptsList(target, interceptor);
+        Proxy proxy = new Proxy(target, interceptor, interceptsList);
 //        jdk-proxy
         if (isJdkProxy) {
-            return java.lang.reflect.Proxy.newProxyInstance(type.getClassLoader(), interfaces, new Proxy(target, interceptor, interceptsList));
+            return staticserviceConsumer(JDKProxyServiceImpl.factory, proxy, target);
 //        asm-proxy
         } else {
-            Proxy proxy = new Proxy(target, interceptor, interceptsList);
-            Class<?> ams_temp = new AopClassLoader().defineClass(target.getClass(), proxy);
-            Object o = ams_temp.newInstance();
-            Method setInvocationHandler = o.getClass().getDeclaredMethod("setInvocationHandler", Proxy.class);
-            setInvocationHandler.setAccessible(true);
-            setInvocationHandler.invoke(o, proxy);
-            return o;
+            return staticserviceConsumer(AsmProxyServiceImpl.factory, proxy, target);
         }
+    }
+
+    public static Object staticserviceConsumer(ProxyFactory proxyFactory, Proxy proxy, Object target) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        ProxyService service = proxyFactory.getService();
+        return service.generateAOPObject(target, proxy);
     }
 
     private static ArrayList<Method> getInterceptsList(Object target, Interceptor interceptor) {
