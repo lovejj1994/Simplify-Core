@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationHandler;
 
+import static cn.xxywithpq.utils.ASMEngineTools.*;
+
 public class AopClassLoader extends ClassLoader implements Opcodes {
 
     public AopClassLoader(ClassLoader parent) {
@@ -19,7 +21,7 @@ public class AopClassLoader extends ClassLoader implements Opcodes {
     }
 
     public Class<?> defineClass(Class clazz, InvocationHandler invocationHandler) throws ClassNotFoundException {
-        String clazzName = clazz.getName().replace(".", "/") + ".class";
+        String clazzName = replaceClassName(clazz) + ".class";
         try {
             ClassWriter cw = new ClassWriter(0);
             //读取 被代理类

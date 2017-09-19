@@ -6,6 +6,7 @@ import cn.xxywithpq.proxy.common.Interceptor;
 import cn.xxywithpq.proxy.jdkproxy.bean.Source;
 import cn.xxywithpq.proxy.jdkproxy.bean.Sourceable;
 import cn.xxywithpq.proxy.jdkproxy.interceptor.MyInterceptor;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,12 +14,12 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @author panqian
  */
-public class JdkProxyTest {
+public class ProxyTest {
 
     @Test
-    void jdkProxy01() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    void proxy01() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        System.out.println("===================JdkProxyTest01 jdkProxy===================");
+        System.out.println("===================proxyTest01 jdkProxy===================");
 
         Sourceable source = new Source();
 
@@ -33,10 +34,10 @@ public class JdkProxyTest {
     }
 
 
-    @Test
-    void jdkProxy02() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    @RepeatedTest(10)
+    void proxy02() throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        System.out.println("===================JdkProxyTest02 asmProxy===================");
+        System.out.println("===================proxyTest02 asmProxy===================");
         try {
             Asm asm = new Asm();
             MyInterceptor myInterceptor = new MyInterceptor();
