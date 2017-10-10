@@ -6,8 +6,40 @@
 
     <groupId>cn.xxywithpq</groupId>
     <artifactId>Simplify-Core</artifactId>
-    <version>1.0.0.M4</version>
+    <version>1.0.0.M4-SNAPSHOT</version>
+    <url>https://github.com/lovejj1994/Simplify-Core</url>
+    <description>Simplify is generated for simplifying repetitive JAVA code, based on JDK8, without other jar
+        dependencies, providing common operations such as serialization, json, date, and so on.
+    </description>
     <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git://github.com/lovejj1994/Simplify-Core.git</connection>
+        <developerConnection>scm:git:git@github.com:lovejj1994/Simplify-Core.git</developerConnection>
+        <url>https://github.com/lovejj1994/Simplify-Core</url>
+        <tag>1.0.0.M4</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>lovejj1994</id>
+            <name>Pan Qian</name>
+            <email>455234037@qq.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -81,6 +113,45 @@
                         <version>${junit.platform.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <tagNameFormat>1.0.0.M4</tagNameFormat>
+                </configuration>
             </plugin>
         </plugins>
     </build>
