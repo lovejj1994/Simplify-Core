@@ -20,13 +20,13 @@ Simplify 为简化重复的JAVA代码而生，基于JDK8，无其它jar包依赖
 <br />
 
 > **Maven:**
-```
-<dependency>
-    <groupId>cn.xxywithpq</groupId>
-    <artifactId>Simplify-Core</artifactId>
-    <version>1.0.0.M4</version>
-</dependency>
-```
+>```
+><dependency>
+>    <groupId>cn.xxywithpq</groupId>
+>    <artifactId>Simplify-Core</artifactId>
+>    <version>1.0.0.M4</version>
+></dependency>
+>```
 
 > **使用说明:**  
 > - 每个功能在源代码中都有完整的测试用例，详情见test源码。后期会补充在README中
