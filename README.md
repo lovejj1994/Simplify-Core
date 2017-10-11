@@ -19,6 +19,16 @@ Simplify 为简化重复的JAVA代码而生，基于JDK8，无其它jar包依赖
 > - 2017.9.24  用asm框架实现自己的动态代理框架。至此Simplify-Core封装了jdkProxy和asm动态代理功能。
 <br />
 
+> **Maven:**
+```
+<dependency>
+    <groupId>cn.xxywithpq</groupId>
+    <artifactId>Simplify-Core</artifactId>
+    <version>1.0.0.M4</version>
+</dependency>
+```
+ <br /> 
+ 
 > **使用说明:**  
 > - 每个功能在源代码中都有完整的测试用例，详情见test源码。后期会补充在README中
 
