@@ -181,8 +181,9 @@ public abstract class AbstractJson {
         Type[] genericParameterTypes = m.getGenericParameterTypes();
         for (Type type : genericParameterTypes) {
             Type[] actualTypeArguments = ReflectionUtils.getActualTypeArguments(type);
-            if (null == actualTypeArguments || actualTypeArguments.length == 0)
+            if (null == actualTypeArguments || actualTypeArguments.length == 0) {
                 return null;
+            }
             //Map 取value的泛型
             if (actualTypeArguments.length > 1) {
                 return actualTypeArguments[1];

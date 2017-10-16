@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
+    private static Pattern IS_NUMERIC_PATTERN = Pattern.compile("(\\d*)(\\.?)(\\d*)");
+    private static Pattern IS_INTEGER_NUMERIC = Pattern.compile("(\\d+)(\\.{1})(\\d*)");
+    private static Pattern IS_BOOLEAN = Pattern.compile("true|false");
     // Empty checks
     //-----------------------------------------------------------------------
 
@@ -109,10 +112,10 @@ public class StringUtils {
      * @return
      */
     public static boolean isNumeric(String str) {
-        if (StringUtils.isBlank(str))
+        if (StringUtils.isBlank(str)) {
             return false;
-        Pattern pattern = Pattern.compile("(\\d*)(\\.?)(\\d*)");
-        Matcher isNum = pattern.matcher(str);
+        }
+        Matcher isNum = IS_NUMERIC_PATTERN.matcher(str);
         if (!isNum.matches()) {
             return false;
         } else {
@@ -133,10 +136,10 @@ public class StringUtils {
      * @return
      */
     public static boolean isIntegerNumeric(String str) {
-        if (StringUtils.isBlank(str))
+        if (StringUtils.isBlank(str)) {
             return false;
-        Pattern pattern = Pattern.compile("(\\d+)(\\.{1})(\\d*)");
-        Matcher isNum = pattern.matcher(str);
+        }
+        Matcher isNum = IS_INTEGER_NUMERIC.matcher(str);
         if (!isNum.matches()) {
             BigInteger bigDecimal = new BigInteger(str);
             if (Integer.MIN_VALUE <= bigDecimal.longValue() && bigDecimal.longValue() <= Integer.MAX_VALUE) {
@@ -157,10 +160,10 @@ public class StringUtils {
      * @return
      */
     public static boolean isBoolean(String str) {
-        if (StringUtils.isBlank(str))
+        if (StringUtils.isBlank(str)) {
             return false;
-        Pattern pattern = Pattern.compile("true|false");
-        Matcher isNum = pattern.matcher(str);
+        }
+        Matcher isNum = IS_BOOLEAN.matcher(str);
         if (!isNum.matches()) {
             return false;
         } else {

@@ -18,11 +18,11 @@ class AopClassAdapter extends ClassVisitor implements Opcodes {
     public final static String AopPrefix = "$simplify"; //生成的Aop方法后缀
     public final static String proxyClass = replaceClassName(Proxy.class);
     public final static String proxyAsmClass = toAsmType(Proxy.class);
+    private static Pattern VISITAOPMETHODPATTERN = Pattern.compile("\\((.*)\\)(.*)");
     int ACC_PRIVATEFINAL = 0x0012; // private final
     private String superClassName = null;      //父类类名
     private String subClassName = null;      //子类类名
     private InvocationHandler invocationHandler = null;
-
 
     public AopClassAdapter(int api, ClassVisitor cv, InvocationHandler invocationHandler) {
         super(api, cv);
@@ -89,8 +89,7 @@ class AopClassAdapter extends ClassVisitor implements Opcodes {
     private void visitConstruction(MethodVisitor mv, String name, String desc) {
         //1.准备输出方法数据
         mv.visitCode();
-        Pattern p = Pattern.compile("\\((.*)\\)(.*)");
-        Matcher m = p.matcher(desc);
+        Matcher m = VISITAOPMETHODPATTERN.matcher(desc);
         m.find();
         String[] asmParams = splitAsmType(m.group(1));//"IIIILjava/lang/Integer;F[[[ILjava/lang.Boolean;"
         int paramCount = asmParams.length;
@@ -109,8 +108,7 @@ class AopClassAdapter extends ClassVisitor implements Opcodes {
     //输出Aop逻辑的方法
     private void visitAOPMethod(MethodVisitor mv, String name, String desc) {
 //        //1.准备输出方法数据
-        Pattern p = Pattern.compile("\\((.*)\\)(.*)");
-        Matcher m = p.matcher(desc);
+        Matcher m = VISITAOPMETHODPATTERN.matcher(desc);
         m.find();
         String[] asmParams = splitAsmType(m.group(1));//"IIIILjava/lang/Integer;F[[[ILjava/lang.Boolean;"
         String asmReturns = m.group(2);
@@ -158,7 +156,6 @@ class AopClassAdapter extends ClassVisitor implements Opcodes {
             mv.visitVarInsn(ALOAD, paramCount + 6);
             mv.visitMethodInsn(INVOKESPECIAL, "java/lang/RuntimeException", "<init>", "(Ljava/lang/Throwable;)V", false);
             mv.visitInsn(ATHROW);
-//            mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
         }
         mv.visitMaxs(maxStack, maxLocals);
     }
@@ -166,8 +163,7 @@ class AopClassAdapter extends ClassVisitor implements Opcodes {
     //输出调用父类方法的方法
     private void visitSupperMethod(MethodVisitor mv, String name, String desc) {
         //1.准备输出方法数据
-        Pattern p = Pattern.compile("\\((.*)\\)(.*)");
-        Matcher m = p.matcher(desc);
+        Matcher m = VISITAOPMETHODPATTERN.matcher(desc);
         m.find();
         String[] asmParams = splitAsmType(m.group(1));//"IIIILjava/lang/Integer;F[[[ILjava/lang.Boolean;"
         String asmReturns = m.group(2);

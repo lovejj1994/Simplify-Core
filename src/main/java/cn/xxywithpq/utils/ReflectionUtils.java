@@ -30,8 +30,9 @@ public class ReflectionUtils {
 
         Field field = getDeclaredField(object.getClass(), fieldName);
 
-        if (field == null)
+        if (field == null) {
             throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + object + "]");
+        }
 
         makeAccessible(field);
 
@@ -51,11 +52,13 @@ public class ReflectionUtils {
      */
     public static Object getFieldValue(final Field field, final Object object) {
 
-        if (field == null)
+        if (field == null) {
             throw new IllegalArgumentException("field cannot be empty");
+        }
 
-        if (object == null)
+        if (object == null) {
             throw new IllegalArgumentException("object cannot be empty");
+        }
 
         makeAccessible(field);
 
@@ -75,8 +78,9 @@ public class ReflectionUtils {
     public static void setFieldValue(final Object object, final String fieldName, final Object value) {
         Field field = getDeclaredField(object, fieldName);
 
-        if (field == null)
+        if (field == null) {
             throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + object + "]");
+        }
 
         makeAccessible(field);
 
@@ -134,13 +138,16 @@ public class ReflectionUtils {
             return Modifier.toString(mod);
         } else {
             int access_mod = mod & ACCESS_MODIFIERS;
-            if (access_mod != 0)
+            if (access_mod != 0) {
                 return Modifier.toString(access_mod);
-            if (isDefault)
+            }
+            if (isDefault) {
                 return "default ";
+            }
             mod = (mod & ~ACCESS_MODIFIERS);
-            if (mod != 0)
+            if (mod != 0) {
                 return Modifier.toString(mod);
+            }
         }
         return null;
     }
@@ -178,8 +185,9 @@ public class ReflectionUtils {
         for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
             Method[] declaredMethods = superClass.getDeclaredMethods();
             if (null != declaredMethods && declaredMethods.length > 0) {
-                for (Method m : declaredMethods)
+                for (Method m : declaredMethods) {
                     methods.add(m);
+                }
             }
         }
         return methods;
