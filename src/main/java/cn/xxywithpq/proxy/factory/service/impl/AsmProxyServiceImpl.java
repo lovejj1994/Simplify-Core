@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * @author panqian
  * asmProxyService
  */
 public class AsmProxyServiceImpl implements ProxyService {
